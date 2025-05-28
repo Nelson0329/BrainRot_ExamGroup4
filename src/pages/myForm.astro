@@ -4,36 +4,57 @@ import formLayout from "./layouts/formLayout.astro";
 
 <formLayout>
   <div class="container">
-    <form id="form">
-      <h2 id="form-title">Create account</h2>
-      <input type="text" id="username" placeholder="Username" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <input type="password" id="confirm-password" placeholder="Confirm Password" required />
-      <button type="submit">Register</button>
-      <p class="toggle-text"> ¿Do you already have an account? <a id="toggle-link">Log in</a></p>
+    <form id="conteniner__form">
+      <h2 class="container__title">Create account</h2>
+      <input
+        class="container__input"
+        type="text"
+        id="username"
+        placeholder="Username"
+        required
+      />
+      <input
+        class="container__input"
+        type="password"
+        id="password"
+        placeholder="Password"
+        required
+      />
+      <input
+        class="container__input"
+        type="password"
+        id="confirm-password"
+        placeholder="Confirm Password"
+        required
+      />
+      <button class="container__button" type="submit">Register</button>
+      <p class="container__text">
+        ¿Do you already have an account? <a id="toggle-link">Log in</a>
+      </p>
     </form>
-</formLayout>
+  </div>
 
-<style>
-    *{
+  <style>
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-     body {
-      margin: 0;
+    body {
       font-family: sans-serif;
-      background: #121212;
-      color: #fff;
+      background: oklch(0.1822 0 0);
+      color: oklch(1 0 0);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 1rem;
+      overflow: hidden;
+      caret-color: transparent;
     }
 
     .container {
-      background: #1e1e1e;
+      background: oklch(0.235 0 0);
       padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
@@ -41,28 +62,28 @@ import formLayout from "./layouts/formLayout.astro";
       max-width: 400px;
     }
 
-    h2 {
+    .container__title {
       text-align: center;
       margin-bottom: 1.5rem;
     }
 
-    input {
+    .container__input {
       width: 100%;
       margin: 0.5rem 0;
       padding: 0.8rem;
       border-radius: 6px;
-      border: 1px solid #444;
-      background: #2c2c2c;
-      color: white;
+      border: 1px solid oklch(0.3867 0 0);
+      background: oklch(0.2931 0 0);
+      color: oklch(1 0 0);
       font-size: 1rem;
     }
 
-    button {
+    .container__button {
       width: 100%;
       padding: 0.8rem;
       margin-top: 1rem;
-      background: #00bfff;
-      color: black;
+      background: oklch(0.7554 0.1534 231.64);
+      color: oklch(0 0 0);
       border: none;
       border-radius: 6px;
       font-weight: bold;
@@ -71,20 +92,27 @@ import formLayout from "./layouts/formLayout.astro";
       transition: background 0.3s;
     }
 
-    button:hover {
-      background: #00a3cc;
+    .container__button:hover {
+      background: oklch(0.6648 0.124885 224.0294);
     }
 
-    .toggle-text {
+    .container__text {
       margin-top: 1rem;
       text-align: center;
       font-size: 0.9rem;
     }
 
-    .toggle-text a {
-      color: #00bfff;
+    .container__text a {
+      color: oklch(0.7554 0.1534 231.64);
       text-decoration: underline;
       cursor: pointer;
+    }
+
+    .container__input:focus {
+      outline: none;
+      border: 0.5px solid oklch(0.7554 0.1534 231.64);
+      box-shadow: 0 0 6px oklch(0.7554 0.1534 231.64 / 53.33%);
+      caret-color: white;
     }
 
     @media (max-width: 500px) {
@@ -92,14 +120,15 @@ import formLayout from "./layouts/formLayout.astro";
         padding: 2rem;
       }
 
-      h2 {
+      .container__title {
         font-size: 1.4rem;
       }
 
-      input,
-      button {
+      .container__input,
+      .container__button {
         font-size: 0.95rem;
         padding: 0.7rem;
       }
     }
-</style>
+  </style>
+</formLayout>
