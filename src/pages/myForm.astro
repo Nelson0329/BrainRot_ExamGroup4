@@ -5,14 +5,12 @@ import formLayout from "./layouts/formLayout.astro";
 <formLayout>
   <div class="container">
     <form id="form">
-      <h2 id="form-title">Registro</h2>
-      <input type="text" id="username" placeholder="Usuario" required />
-      <input type="email" id="email" placeholder="Correo" required />
-      <input type="password" id="password" placeholder="Contraseña" required />
-      <button type="submit">Registrarse</button>
-      <p class="toggle-text">
-        ¿Ya tienes cuenta? <a id="toggle-link">Inicia sesión</a>
-      </p>
+      <h2 id="form-title">Create account</h2>
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+      <button type="submit">Register</button>
+      <p class="toggle-text"> ¿Do you already have an account? <a id="toggle-link">Log in</a></p>
     </form>
 </formLayout>
 
@@ -22,51 +20,86 @@ import formLayout from "./layouts/formLayout.astro";
       margin: 0;
       padding: 0;
     }
-    body {
+     body {
+      margin: 0;
       font-family: sans-serif;
-      background: #f4f4f4;
+      background: #121212;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 1rem;
     }
+
     .container {
-      background: white;
+      background: #1e1e1e;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
       width: 100%;
       max-width: 400px;
     }
+
     h2 {
       text-align: center;
+      margin-bottom: 1.5rem;
     }
+
     input {
       width: 100%;
       margin: 0.5rem 0;
       padding: 0.8rem;
       border-radius: 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #444;
+      background: #2c2c2c;
+      color: white;
+      font-size: 1rem;
     }
+
     button {
       width: 100%;
       padding: 0.8rem;
       margin-top: 1rem;
-      background: #007bff;
-      color: white;
+      background: #00bfff;
+      color: black;
       border: none;
       border-radius: 6px;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background 0.3s;
     }
+
+    button:hover {
+      background: #00a3cc;
+    }
+
     .toggle-text {
       margin-top: 1rem;
       text-align: center;
       font-size: 0.9rem;
     }
+
     .toggle-text a {
-      color: #007bff;
-      text-decoration: none;
+      color: #00bfff;
+      text-decoration: underline;
       cursor: pointer;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 2rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      input,
+      button {
+        font-size: 0.95rem;
+        padding: 0.7rem;
+      }
     }
 </style>
