@@ -5,31 +5,32 @@ import formLayout from "./layouts/formLayout.astro";
 <formLayout>
   <div class="container">
     <form id="conteniner__form">
-      <h2 class="container__title" id="content_title">Create account</h2>
+      <h2 class="container__title" id="content_title">Crear cuenta</h2>
       <input
         class="container__input"
         type="text"
         id="username"
-        placeholder="Username"
+        placeholder="Nombre de usuario"
         required
       />
       <input
         class="container__input"
         type="password"
         id="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         required
       />
       <input
         class="container__input"
         type="password"
         id="confirm-password"
-        placeholder="Confirm Password"
+        placeholder="Confirmar contraseña"
         required
       />
-      <button class="container__button" type="submit">Register</button>
+      <button class="container__button" type="submit">Registrarse</button>
       <p class="container__text">
-        ¿Do you already have an account? <a id="container__link">Log in</a>
+        <span id="text__label">¿Ya tienes una cuenta?</span>
+        <a href="#" id="container__link">Iniciar sesión</a>
       </p>
     </form>
   </div>
@@ -133,41 +134,71 @@ import formLayout from "./layouts/formLayout.astro";
   }
 </style>
 <script>
-  const textParagraph = document.querySelector(".container__text");
-const formTitle = document.getElementById("content_title");
-const confirmPasswordInput = document.getElementById("confirm-password");
-const submitButton = document.querySelector(".container__button");
+  // Capturamos elementos del DOM que vamos a modificar
+  const formTitle = document.getElementById("content_title");
+  const confirmPasswordInput = document.getElementById("confirm-password");
+  const submitButton = document.querySelector(".container__button");
+  const toggleLink = document.getElementById("container__link");
+  const textLabel = document.getElementById("text__label");
 
-let isLogin = false;
+  // Indica en qué modo estamos
+  let isLogin = false;
 
-function updateForm() {
-  if (isLogin) {
-    formTitle.textContent = "Log in";
-    confirmPasswordInput.style.display = "none";
-    submitButton.textContent = "Log in";
-    textParagraph.innerHTML = `¿Don't have an account? <a id="container__link">Create account</a>`;
-  } else {
-    formTitle.textContent = "Create account";
-    confirmPasswordInput.style.display = "block";
-    submitButton.textContent = "Register";
-    textParagraph.innerHTML = `¿Do you already have an account? <a id="container__link">Log in</a>`;
+  // Función para actualizar el formulario
+  function updateForm() {
+    if (isLogin) {
+      formTitle.textContent = "Iniciar sesión";
+      confirmPasswordInput.style.display = "none";
+      submitButton.textContent = "Iniciar sesión";
+      textLabel.textContent = "¿No tienes una cuenta?";
+      toggleLink.textContent = "Crear cuenta";
+    } else {
+      formTitle.textContent = "Crear cuenta";
+      confirmPasswordInput.style.display = "block";
+      submitButton.textContent = "Registrarse";
+      textLabel.textContent = "¿Ya tienes una cuenta?";
+      toggleLink.textContent = "Iniciar sesión";
+    }
   }
 
-  // El nuevo enlace que acabamos de poner en innerHTML
-  const newToggleLink = document.getElementById("container__link");
-
-  // Quitamos cualquier listener previo para evitar acumulación
-  newToggleLink.replaceWith(newToggleLink.cloneNode(true));
-  const freshToggleLink = document.getElementById("container__link");
-
-  freshToggleLink.addEventListener("click", (e) => {
-    e.preventDefault(); // prevenir comportamiento por defecto
-    isLogin = !isLogin;
-    updateForm();
+  toggleLink.addEventListener("click", (e) => {
+    e.preventDefault(); // No recarga la página
+    isLogin = !isLogin; // Cambia el estado del booleano
+    updateForm(); // Actualiza
   });
-}
 
-// Inicializar
-updateForm();
+  updateForm(); // Se llama cuando la página está cargada
 
+  // Validar el formulario
+  const form = document.getElementById("conteniner__form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); // Evita que se envíe si hay errores
+
+    const username = (
+      document.getElementById("username") as HTMLInputElement
+    ).value.trim();
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
+    const confirmPassword = (
+      document.getElementById("confirm-password") as HTMLInputElement
+    ).value;
+    const form = document.getElementById("conteniner__form") as HTMLFormElement;
+
+    if (username === "" || password === "") {
+      alert("El nombre de usuario y la contraseña son obligatorios.");
+      return;
+    }
+
+    if (!isLogin && password !== confirmPassword) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    // Simulación de envío válido
+    alert(isLogin ? "Iniciando sesión..." : "Registrando...");
+
+    form.reset(); // Limpiar el formulario
+    updateForm(); // Volver a estado inicial
+  });
 </script>
