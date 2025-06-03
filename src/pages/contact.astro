@@ -1,0 +1,110 @@
+---
+import formContact from "./layouts/formContact.astro";
+---
+
+<formContact>
+  <div class="container">
+    <form id="contacto__formulario">
+      <h2 class="container__title">Contacto</h2>
+
+      <input
+        class="container__input"
+        type="text"
+        id="nombre"
+        name="nombre"
+        placeholder="Nombre"
+        required
+      />
+      <input
+        class="container__input"
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Correo electrónico"
+        required
+      />
+
+      <label for="mensaje" style="margin-top: 1rem; display: block; color: oklch(1 0 0);">
+        Mensaje
+      </label>
+      <textarea
+        class="container__input"
+        id="mensaje"
+        name="mensaje"
+        rows="4"
+        required
+        style="resize: none;"></textarea>
+
+      <button type="submit" class="container__button">Enviar</button>
+    </form>
+  </div>
+</formContact>
+<style>
+  *, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: sans-serif;
+    background: oklch(0.1822 0 0);
+    color: oklch(1 0 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    overflow: hidden;
+    caret-color: transparent;
+  }
+
+  .container {
+    background: oklch(0.235 0 0);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 2em;
+  }
+
+  .container__title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .container__input {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid oklch(0.3867 0 0);
+    background: oklch(0.2931 0 0);
+    color: oklch(1 0 0);
+    font-size: 1rem;
+  }
+
+  .container__button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    background: oklch(0.7554 0.1534 231.64);
+    color: oklch(0 0 0);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .container__button:hover {
+    background: oklch(0.6648 0.124885 224.0294);
+  }
+
+  .container__input:focus {
+    outline: none;
+    border: 0.5px solid oklch(0.7554 0.1534 231.64);
+    box-shadow: 0 0 6px oklch(0.7554 0.1534 231.64 / 53.33%);
+    caret-color: white;
+  }           
+</style>
