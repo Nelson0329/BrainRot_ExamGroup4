@@ -1,5 +1,5 @@
 ---
-import FormLayout from "./layouts/FormLayout.astro"
+import FormLayout from "./layouts/FormLayout.astro";
 ---
 
 <FormLayout title="Formulario de Ingreso">
@@ -15,7 +15,6 @@ import FormLayout from "./layouts/FormLayout.astro"
       />
       <input
         class="container__input"
-
         type="password"
         id="password"
         placeholder="Contraseña"
@@ -142,7 +141,6 @@ import FormLayout from "./layouts/FormLayout.astro"
     background: oklch(0.6648 0.124885 224.0294);
   }
 
-  
   @media (max-width: 768px) {
     .container {
       padding: 1.5rem;
@@ -216,8 +214,8 @@ import FormLayout from "./layouts/FormLayout.astro"
   // Validar el formulario
   const form = document.getElementById("conteniner__form");
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault(); // Evita que se envíe si hay errores
+  form.addEventListener("submit", (event) => {
+    event.preventDefault(); // Evita que se envíe si hay errores
 
     const username = (
       document.getElementById("username") as HTMLInputElement

@@ -1,5 +1,5 @@
 ---
-import FormContact from "./layouts/FormContact.astro"
+import FormContact from "./layouts/FormContact.astro";
 ---
 
 <FormContact title="Formulario de Contacto">
@@ -24,7 +24,10 @@ import FormContact from "./layouts/FormContact.astro"
         required
       />
 
-      <label for="mensaje" style="margin-top: 1rem; display: block; color: oklch(1 0 0);">
+      <label
+        for="mensaje"
+        style="margin-top: 1rem; display: block; color: oklch(1 0 0);"
+      >
         Mensaje
       </label>
       <textarea
@@ -41,12 +44,14 @@ import FormContact from "./layouts/FormContact.astro"
   </div>
 </FormContact>
 <style>
-  *, *::after, *::before {
+  *,
+  *::after,
+  *::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
-  
+
   body {
     font-family: sans-serif;
     background: oklch(0.1822 0 0);
@@ -85,8 +90,8 @@ import FormContact from "./layouts/FormContact.astro"
     color: oklch(1 0 0);
     font-size: 1rem;
   }
-  
-  #mensaje{
+
+  #mensaje {
     font-family: sans-serif;
   }
 
@@ -112,5 +117,32 @@ import FormContact from "./layouts/FormContact.astro"
     border: 0.5px solid oklch(0.7554 0.1534 231.64);
     box-shadow: 0 0 6px oklch(0.7554 0.1534 231.64 / 53.33%);
     caret-color: white;
-  }           
+  }
 </style>
+<script>
+  const form = document.getElementById("contacto__formulario") as HTMLFormElement;
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const nombre = (document.getElementById("nombre") as HTMLInputElement).value.trim();
+    const email = (document.getElementById("email") as HTMLInputElement).value.trim();
+    const mensaje = (document.getElementById("mensaje") as HTMLTextAreaElement).value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!nombre || !email || !mensaje) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      alert("Por favor, ingresa un correo electrónico válido.");
+      return;
+    }
+
+    alert(`Gracias por tu mensaje, ${nombre}!`);
+    form.reset();
+  });
+</script>
+
