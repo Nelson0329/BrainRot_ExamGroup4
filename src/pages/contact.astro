@@ -1,8 +1,8 @@
 ---
-import formContact from "./layouts/formContact.astro";
+import FormContact from "./layouts/FormContact.astro"
 ---
 
-<formContact>
+<FormContact title="Formulario de Contacto">
   <div class="container">
     <form id="contacto__formulario">
       <h2 class="container__title">Contacto</h2>
@@ -31,6 +31,7 @@ import formContact from "./layouts/formContact.astro";
         class="container__input"
         id="mensaje"
         name="mensaje"
+        placeholder="Escribe tu mensaje aquí"
         rows="4"
         required
         style="resize: none;"></textarea>
@@ -38,13 +39,14 @@ import formContact from "./layouts/formContact.astro";
       <button type="submit" class="container__button">Enviar</button>
     </form>
   </div>
-</formContact>
+</FormContact>
 <style>
   *, *::after, *::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
+  
   body {
     font-family: sans-serif;
     background: oklch(0.1822 0 0);
@@ -82,6 +84,10 @@ import formContact from "./layouts/formContact.astro";
     background: oklch(0.2931 0 0);
     color: oklch(1 0 0);
     font-size: 1rem;
+  }
+  
+  #mensaje{
+    font-family: sans-serif;
   }
 
   .container__button {

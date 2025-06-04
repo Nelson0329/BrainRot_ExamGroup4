@@ -1,8 +1,8 @@
 ---
-import formLayout from "./layouts/formLayout.astro";
+import FormLayout from "./layouts/FormLayout.astro"
 ---
 
-<formLayout>
+<FormLayout title="Formulario de Ingreso">
   <div class="container">
     <form id="conteniner__form">
       <h2 class="container__title" id="content_title">Crear cuenta</h2>
@@ -15,6 +15,7 @@ import formLayout from "./layouts/formLayout.astro";
       />
       <input
         class="container__input"
+
         type="password"
         id="password"
         placeholder="Contraseña"
@@ -34,13 +35,17 @@ import formLayout from "./layouts/formLayout.astro";
       </p>
     </form>
   </div>
-</formLayout>
+  <a href="/contact" class="contact__button">Contacto</a>
+</FormLayout>
 <style>
-  *, *::after, *::before {
+  *,
+  *::after,
+  *::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
+
   body {
     font-family: sans-serif;
     background: oklch(0.1822 0 0);
@@ -55,6 +60,7 @@ import formLayout from "./layouts/formLayout.astro";
   }
 
   .container {
+    position: relative;
     background: oklch(0.235 0 0);
     padding: 2rem;
     border-radius: 12px;
@@ -117,19 +123,57 @@ import formLayout from "./layouts/formLayout.astro";
     caret-color: white;
   }
 
-  @media (max-width: 500px) {
+  .contact__button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: oklch(0.7554 0.1534 231.64);
+    color: oklch(0 0 0);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .contact__button:hover {
+    background: oklch(0.6648 0.124885 224.0294);
+  }
+
+  
+  @media (max-width: 768px) {
     .container {
-      padding: 2rem;
+      padding: 1.5rem;
     }
-
     .container__title {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
-
     .container__input,
     .container__button {
       font-size: 0.95rem;
       padding: 0.7rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 1rem;
+    }
+    .container__title {
+      font-size: 1.2rem;
+    }
+    .container__input,
+    .container__button {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+    .contact__button {
+      bottom: 0.5rem;
+      right: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
     }
   }
 </style>
