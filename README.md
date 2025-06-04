@@ -4,44 +4,43 @@
 pnpm create astro@latest -- --template minimal
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## Pagina Quiz de Brainrot para la elección de un avatar:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+¡Hola! Soy Fiorella Terranova me encargué de realizar el quiz de Brainrot, transformando los diseños de Figma en una experiencia web interactiva y responsive. 
 
-## 🚀 Project Structure
+### Tareas realizadas:
 
-Inside of your Astro project, you'll see the following folders and files:
+1. **Diseño Fiel a Figma:** Implementación de la paleta de colores, tipografía y elementos interactivos, para mantener la estética original del proyecto creado en Figma. URL del Figma: "https://www.figma.com/design/iwa3AcQh527pDcN04vQQE4/UpTodo---Todo-list-app-UI-Kit--Community-?node-id=0-1&m=dev&t=CtAqprXLDGuDsqfm-1"
+2. **Desarrollo con Astro:** Creación de componentes (`Quiz.astro`, `quizLayout.astro`) para una arquitectura limpia.
+3. **Lógica Frontend:** Programación del flujo del quiz, desde la selección de preguntas y respuestas hasta la presentación de resultados.
+4. **Responsividad:** Ajustes detallados con `@media queries` para asegurar una experiencia fluida y visualmente atractiva en cualquier dispositivo, especialmente móviles. 
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### Instalación y Ejecución para el funcionamiento del Proyecto:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Para probar el quiz en tu entorno local, sigue estos pasos:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/Nelson0329/BrainRot_ExamGroup4.git
+    cd BrainRot_ExamGroup4
+    ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+2.  **Instalar dependencias:**
+    Asegúrate de tener [pnpm](https://pnpm.io/installation) instalado globalmente (`npm install -g pnpm`), luego ejecuta:
+    ```bash
+    pnpm install
+    ```
 
-## 🧞 Commands
+3.  **Iniciar el servidor de desarrollo:**
+    ```bash
+    pnpm dev
+    ```
+    El quiz estará disponible en `http://localhost:4321/`.
 
-All commands are run from the root of the project, from a terminal:
+4.  **Generar versión para producción (opcional):**
+    ```bash
+    pnpm build
+    ```
+    -> Esto creará una carpeta `dist/` con el sitio optimizado.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+¡Espero que disfrutes explorando este quiz super divertido, y así sabes que Brain Rot sos!
