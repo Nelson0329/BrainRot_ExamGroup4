@@ -25,19 +25,19 @@ const { questions, results } = Astro.props;
 <style>
     /* Variables CSS para una gestión de colores más sencilla, a partir de los colores usados en el Figma*/
     :root {
-        --primary-bg: #2a2a2a; /* Fondo principal del quiz, un gris oscuro */
-        --secondary-bg: #3a3a3a; /* Fondo para elementos anidados o sutiles */
-        --text-light: #e0e0e0; /* Texto principal claro */
-        --text-medium: #b0b0b0; /* Texto secundario o descriptivo */
-        --accent-color: #7f52f3; /* Azul/morado del Figma para botones y acentos */
-        --accent-hover: #6a44d0; /* Tono más oscuro al pasar el mouse */
-        --button-default-bg: #4a4a4a; /* Color por defecto de los botones de opción */
-        --button-default-hover-bg: #5a5a5a; /* Hover para botones de opción */
-        --selected-option-bg: var(--accent-color); /* Color de opción seleccionada, el mismo azul/morado */
+        --primary-bg: #2a2a2a; 
+        --secondary-bg: #3a3a3a; 
+        --text-light: #e0e0e0; 
+        --text-medium: #b0b0b0; 
+        --accent-color: #7f52f3; 
+        --accent-hover: #6a44d0; 
+        --button-default-bg: #4a4a4a; 
+        --button-default-hover-bg: #5a5a5a; 
+        --selected-option-bg: var(--accent-color); 
         --selected-option-border: var(--accent-hover);
-        --disabled-bg: #353535; /* Fondo de botones deshabilitados */
-        --disabled-text: #606060; /* Texto de botones deshabilitados */
-        --border-color-subtle: #444444; /* Color de bordes sutiles */
+        --disabled-bg: #353535; 
+        --disabled-text: #606060; 
+        --border-color-subtle: #444444; 
     }
 
     #quiz-container {
@@ -110,8 +110,8 @@ const { questions, results } = Astro.props;
 
     #next-button, #restart-button {
         /* Hacemos el botón un poco más pequeño */
-        padding: 1rem 2.2rem; /* Reducimos el padding */
-        font-size: 1.15rem; /* Reducimos el tamaño de la fuente */
+        padding: 1rem 2.2rem; 
+        font-size: 1.15rem; 
         background-color: var(--accent-color);
         color: white;
         border: none;
@@ -133,11 +133,11 @@ const { questions, results } = Astro.props;
         padding-top: 2.5rem;
         border-top: 1px solid var(--border-color-subtle);
         animation: fadeIn 1s ease-out;
-        text-align: center; /* Asegura que el contenido en línea y los elementos de bloque con width automático se centren. */
-        display: flex; /* Añadimos flexbox para centrado robusto de la imagen */
-        flex-direction: column; /* Apila los elementos verticalmente */
-        align-items: center; /* Centra los elementos hijos horizontalmente */
-        justify-content: center; /* Centra los elementos hijos verticalmente si hay espacio */
+        text-align: center; 
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
     }
 
 
@@ -166,13 +166,13 @@ const { questions, results } = Astro.props;
         width: 100%; 
     }
     
-    #result-image-container { /* Este es el div que contiene la imagen, NO la imagen directamente */
-        width: 100%; /* <<<<< AGREGA ESTO A ESTE CONTENEDOR >>>>> */
-        display: flex; /* Mantenemos flexbox aquí, como lo tienes en el HTML */
+    #result-image-container { 
+        width: 100%; 
+        display: flex; 
         flex-direction: column;
-        align-items: center; /* Asegura que la imagen se centre dentro de este contenedor */
+        align-items: center; 
         justify-content: center;
-        margin-bottom: 2rem; /* Añade un margen inferior para separarlo del botón de reiniciar */
+        margin-bottom: 2rem; 
     }
 
     #result-image {
