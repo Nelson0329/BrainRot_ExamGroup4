@@ -1,17 +1,16 @@
 ---
+// Este es el archivo principal del quiz, donde se importan los componentes y datos necesario:
 
+import QuizLayout from '../components/quizLayout.astro';
+
+import Quiz from '../components/Quiz.astro';
+
+import { questions, results } from '../data/quizData.js';
 ---
 
-<html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<QuizLayout title="¡Vamos a Elegir Tu Avatar de Brainrot!" description="Descubre qué tipo de brainrot eres con este divertido quiz.">
+    <h1>¡Vamos a Elegir Tu Avatar!</h1>
+    <h2>Entonces, ¿qué Brainrot sos?</h2>
 
+<Quiz questions={questions} results={results} client:load />
+</QuizLayout>
