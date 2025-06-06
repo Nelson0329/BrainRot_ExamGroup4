@@ -176,27 +176,27 @@ import FormLayout from "./layouts/FormLayout.astro";
   }
 </style>
 <script>
-  // Capturamos elementos del DOM que vamos a modificar
-  const formTitle = document.getElementById("content_title");
-  const confirmPasswordInput = document.getElementById("confirm-password");
-  const submitButton = document.querySelector(".container__button");
-  const toggleLink = document.getElementById("container__link");
-  const textLabel = document.getElementById("text__label");
+  const formTitle = document.getElementById("content_title") as HTMLElement;
+  const confirmPasswordInput = document.getElementById("confirm-password") as HTMLInputElement;
+  const submitButton = document.querySelector(".container__button") as HTMLButtonElement;
+  const toggleLink = document.getElementById("container__link") as HTMLElement;
+  const textLabel = document.getElementById("text__label") as HTMLElement;
+  const form = document.getElementById("conteniner__form") as HTMLFormElement;
 
-  // Indica en qué modo estamos
   let isLogin = false;
 
-  // Función para actualizar el formulario
   function updateForm() {
     if (isLogin) {
       formTitle.textContent = "Iniciar sesión";
-      confirmPasswordInput.style.display = "none";
+      confirmPasswordInput.type = "hidden";
+      confirmPasswordInput.required = false;
       submitButton.textContent = "Iniciar sesión";
       textLabel.textContent = "¿No tienes una cuenta?";
       toggleLink.textContent = "Crear cuenta";
     } else {
       formTitle.textContent = "Crear cuenta";
-      confirmPasswordInput.style.display = "block";
+      confirmPasswordInput.type = "password";
+      confirmPasswordInput.required = true;
       submitButton.textContent = "Registrarse";
       textLabel.textContent = "¿Ya tienes una cuenta?";
       toggleLink.textContent = "Iniciar sesión";
@@ -204,43 +204,51 @@ import FormLayout from "./layouts/FormLayout.astro";
   }
 
   toggleLink.addEventListener("click", (e) => {
-    e.preventDefault(); // No recarga la página
-    isLogin = !isLogin; // Cambia el estado del booleano
-    updateForm(); // Actualiza
+    e.preventDefault();
+    isLogin = !isLogin;
+    updateForm();
   });
 
-  updateForm(); // Se llama cuando la página está cargada
-
-  // Validar el formulario
-  const form = document.getElementById("conteniner__form");
+  updateForm();
 
   form.addEventListener("submit", (event) => {
-    event.preventDefault(); // Evita que se envíe si hay errores
+    event.preventDefault();
 
-    const username = (
-      document.getElementById("username") as HTMLInputElement
-    ).value.trim();
-    const password = (document.getElementById("password") as HTMLInputElement)
-      .value;
-    const confirmPassword = (
-      document.getElementById("confirm-password") as HTMLInputElement
-    ).value;
-    const form = document.getElementById("conteniner__form") as HTMLFormElement;
+    const username = (document.getElementById("username") as HTMLInputElement).value.trim();
+    const password = (document.getElementById("password") as HTMLInputElement).value;
+    const confirmPassword = confirmPasswordInput.value;
 
     if (username === "" || password === "") {
       alert("El nombre de usuario y la contraseña son obligatorios.");
       return;
     }
 
-    if (!isLogin && password !== confirmPassword) {
-      alert("Las contraseñas no coinciden.");
+    if (!isLogin) {
+      if (password !== confirmPassword) {
+        alert("Las contraseñas no coinciden.");
+        return;
+      }
+
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      alert("Registro exitoso. Ahora puedes iniciar sesión.");
+      isLogin = true;
+      updateForm();
+      form.reset();
       return;
     }
 
-    // Simulación de envío válido
-    alert(isLogin ? "Iniciando sesión..." : "Registrando...");
+    const savedUsername = localStorage.getItem("username");
+    const savedPassword = localStorage.getItem("password");
 
-    form.reset(); // Limpiar el formulario
-    updateForm(); // Volver a estado inicial
+    if (username === savedUsername && password === savedPassword) {
+      alert("Inicio de sesión exitoso.");
+    } else {
+      alert("Credenciales incorrectas.");
+    }
+
+    form.reset();
   });
 </script>
+
