@@ -177,8 +177,12 @@ import FormLayout from "../layouts/FormLayout.astro";
 </style>
 <script>
   const formTitle = document.getElementById("content_title") as HTMLElement;
-  const confirmPasswordInput = document.getElementById("confirm-password") as HTMLInputElement;
-  const submitButton = document.querySelector(".container__button") as HTMLButtonElement;
+  const confirmPasswordInput = document.getElementById(
+    "confirm-password"
+  ) as HTMLInputElement;
+  const submitButton = document.querySelector(
+    ".container__button"
+  ) as HTMLButtonElement;
   const toggleLink = document.getElementById("container__link") as HTMLElement;
   const textLabel = document.getElementById("text__label") as HTMLElement;
   const form = document.getElementById("conteniner__form") as HTMLFormElement;
@@ -214,8 +218,11 @@ import FormLayout from "../layouts/FormLayout.astro";
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const username = (document.getElementById("username") as HTMLInputElement).value.trim();
-    const password = (document.getElementById("password") as HTMLInputElement).value;
+    const username = (
+      document.getElementById("username") as HTMLInputElement
+    ).value.trim();
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
     const confirmPassword = confirmPasswordInput.value;
 
     if (username === "" || password === "") {
@@ -232,10 +239,7 @@ import FormLayout from "../layouts/FormLayout.astro";
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
 
-      alert("Registro exitoso. Ahora puedes iniciar sesión.");
-      isLogin = true;
-      updateForm();
-      form.reset();
+      window.location.href = "/quizBrainRot";
       return;
     }
 
@@ -251,4 +255,3 @@ import FormLayout from "../layouts/FormLayout.astro";
     form.reset();
   });
 </script>
-
