@@ -1,0 +1,955 @@
+---
+import HomeLayout from "../layouts/homeLayout.astro";
+---
+
+<HomeLayout> 
+ 
+  <div class="app">
+    <div class="header">
+      <!-- Círculo de perfil -->
+      <div class="profile" onclick="openProfileModal()">
+        <img src="https://purina.com.pe/sites/default/files/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg" alt="Foto de perfil" class="profile__img">
+      </div>
+
+      <h1 class="header__title">Tareas</h1>
+      <p class="header__subtitle">¿Qué tareas querés hacer hoy?</p>
+      
+      <div class="goal">
+        <div class="goal__header">
+          <span class="goal__icon">🏆</span>
+          <div class="goal__content">
+            <h3 class="goal__title">Objetivo de la semana</h3>
+            <p>Completar 5 tareas</p>
+            <p class="goal__reward">Premio: Café gratuito</p>
+          </div>
+        </div>
+        <div class="goal__progress-container">
+          <div class="goal__progress-label">
+            <span>Progreso</span>
+            <span id="progress-text">0/5 completadas</span>
+          </div>
+          <div class="goal__progress-bar">
+            <div class="goal__progress" id="goal-progress"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="users">
+        <h3 class="users__title">Resumen de Usuarios</h3>
+        <table class="users__table">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Pendientes</th>
+              <th>Completadas</th>
+              <th>Progreso</th>
+            </tr>
+          </thead>
+          <tbody id="users-summary-body">
+            <!-- Se llenará con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="header__actions">
+        <button class="btn btn--outline" onclick="openCategoryModal()">
+          <i class="fas fa-tags"></i> Gestionar categorías
+        </button>
+        <button class="btn btn--danger" onclick="confirmDeleteAll()">
+          <i class="fas fa-trash"></i> Borrar todas las tareas
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenedores principales -->
+    <div id="lists-container" class="lists"></div>
+    
+    <div id="tasks-container" class="tasks">
+      <div class="tasks__header">
+        <button class="tasks__back-btn" onclick="showLists()">
+          <i class="fas fa-arrow-left"></i> Volver a listas
+        </button>
+        <h2 id="current-list-name" class="tasks__title"></h2>
+      </div>
+      <div id="tasks-list" class="tasks__list"></div>
+      <button class="btn btn--primary" onclick="openTaskModal()" style="width: 100%; margin-top: 1.5rem;">
+        <i class="fas fa-plus"></i> Agregar tarea
+      </button>
+    </div>
+
+    <!-- Botón flotante para agregar lista -->
+    <button class="fab" onclick="openListModal()">+</button>
+
+    <!-- Modal de perfil -->
+    <div id="profileModal" class="modal">
+      <div class="profile-modal__content">
+        <div class="profile-modal__header">
+          <div class="profile profile--large">
+            <img src="https://purina.com.pe/sites/default/files/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg" alt="Foto de perfil" class="profile__img">
+          </div>
+          <h2 class="profile-modal__name">Martha Hays</h2>
+          <p class="profile-modal__email">martha@ejemplo.com</p>
+          
+          <div class="profile-modal__stats">
+            <div class="profile-modal__stat">
+              <div class="profile-modal__stat-value" id="pending-tasks-count">0</div>
+              <div class="profile-modal__stat-label">Pendientes</div>
+            </div>
+            <div class="profile-modal__stat">
+              <div class="profile-modal__stat-value" id="completed-tasks-count">0</div>
+              <div class="profile-modal__stat-label">Completadas</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="profile-modal__actions">
+          <button class="profile-modal__btn profile-modal__btn--contact" onclick="window.location.href='mailto:soporte@ejemplo.com'">
+            <i class="fas fa-envelope"></i> Contacto
+          </button>
+          
+          <button class="profile-modal__btn profile-modal__btn--logout" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para lista de tareas -->
+    <div id="listModal" class="modal">
+      <div class="modal__content">
+        <div class="modal__header">
+          <h3 class="modal__title" id="listModalTitle">Agregar lista de tareas</h3>
+        </div>
+        <div class="modal__body">
+          <div class="form__group">
+            <label for="listTitle" class="form__label">Nombre de la lista</label>
+            <input id="listTitle" type="text" class="form__control" placeholder="Ej: Tareas del hogar">
+          </div>
+          
+          <div class="form__group">
+            <label for="listDesc" class="form__label">Descripción</label>
+            <textarea id="listDesc" class="form__control form__textarea" placeholder="Descripción opcional"></textarea>
+          </div>
+          
+          <div class="form__group">
+            <label for="listCategory" class="form__label">Categoría</label>
+            <select id="listCategory" class="form__control form__select"></select>
+          </div>
+        </div>
+        
+        <div class="modal__buttons">
+          <button class="btn btn--text" onclick="closeListModal()">Cancelar</button>
+          <button class="btn btn--primary" onclick="saveTaskList()">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para tareas -->
+    <div id="taskModal" class="modal">
+      <div class="modal__content">
+        <div class="modal__header">
+          <h3 class="modal__title" id="taskModalTitle">Agregar tarea</h3>
+        </div>
+        <div class="modal__body">
+          <div class="form__group">
+            <label for="taskTitle" class="form__label">Título</label>
+            <input id="taskTitle" type="text" class="form__control" placeholder="Ej: Limpiar el baño">
+          </div>
+          
+          <div class="form__group">
+            <label for="taskDesc" class="form__label">Descripción</label>
+            <textarea id="taskDesc" class="form__control form__textarea" placeholder="Detalles de la tarea"></textarea>
+          </div>
+          
+          <div class="form__group">
+            <label for="taskAssigned" class="form__label">Asignar a</label>
+            <select id="taskAssigned" class="form__control form__select">
+              <option value="">Seleccionar usuario</option>
+              <!-- Las opciones se llenarán con JavaScript -->
+            </select>
+          </div>
+          
+          <div class="form__group">
+            <label for="taskPriority" class="form__label">Prioridad</label>
+            <select id="taskPriority" class="form__control form__select">
+              <option value="low">Baja</option>
+              <option value="normal" selected>Normal</option>
+              <option value="high">Alta</option>
+              <option value="urgent">Urgente</option>
+            </select>
+          </div>
+          
+          <div class="form__group">
+            <label class="form__label">Fecha límite</label>
+            <div class="date-time">
+              <input id="taskDueDate" type="date" class="form__control">
+              <input id="taskDueTime" type="time" class="form__control">
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal__buttons">
+          <button class="btn btn--text" onclick="closeTaskModal()">Cancelar</button>
+          <button class="btn btn--primary" onclick="saveTask()">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para editar fecha -->
+    <div id="dateModal" class="modal">
+      <div class="modal__content">
+        <div class="modal__header">
+          <h3 class="modal__title">Editar fecha límite</h3>
+        </div>
+        <div class="modal__body">
+          <p id="dateModalTaskTitle" class="form__label"></p>
+          
+          <div class="form__group">
+            <label class="form__label">Nueva fecha</label>
+            <div class="date--time">
+              <input id="editDueDate" type="date" class="form__control">
+              <input id="editDueTime" type="time" class="form__control">
+            </div>
+          </div>
+        </div>
+        
+        <div class="button__group">
+          <button class="btn btn--text" onclick="closeDateModal()">Cancelar</button>
+          <button class="btn btn--primary" onclick="updateTaskDate()">Actualizar</button>
+        </div>
+      </div>
+    </div>
+    
+<!-- Modal de confirmación -->
+<div id="confirmModal" class="modal">
+  <div class="modal__content modal__content--confirm">
+    <h3 id="confirmModalTitle" class="modal__title">Confirmar acción</h3>
+    <p id="confirmModalMessage" class="modal__message">¿Estás seguro que deseas realizar esta acción?</p>
+    
+    <div class="modal__buttons">
+      <button class="btn btn--cancel" onclick="closeConfirmModal()">Cancelar</button>
+      <button class="btn btn--confirm" onclick="executeConfirmedAction()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para categorías -->
+<div id="categoryModal" class="modal">
+  <div class="modal__content modal__content--category">
+    <h3 class="modal__title">Gestionar categorías</h3>
+
+    <div id="categories-list" class="category__list" style="margin-bottom: 1rem;"></div>
+
+    <button class="btn btn--primary" onclick="openNewCategoryModal()">+ Nueva categoría</button>
+
+    <div class="modal__buttons">
+      <button class="btn btn--cancel" onclick="closeCategoryModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para nueva categoría -->
+<div id="newCategoryModal" class="modal">
+  <div class="modal__content modal__content--new-category">
+    <h3 class="modal__title">Crear nueva categoría</h3>
+
+    <label for="categoryName" class="form__label">Nombre</label>
+    <input id="categoryName" type="text" placeholder="Nombre de la categoría" class="form__control">
+
+    <label for="categoryIcon" class="form__label">Icono</label>
+    <input id="categoryIcon" type="text" placeholder="Ej: 🏠" maxlength="2" class="form__control">
+
+    <label for="categoryColor" class="form__label">Color</label>
+    <input id="categoryColor" type="color" value="#7c5fff" class="form__control">
+
+    <div class="modal__buttons">
+      <button class="btn btn--cancel" onclick="closeNewCategoryModal()">Cancelar</button>
+      <button class="btn btn--save" onclick="saveNewCategory()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+
+  const currentUserId = 1; // ID de Martha Hays como usuario actual
+  
+    // Lista de usuarios disponibles
+const users = [
+  {
+    id: 1,
+    name: "Martha Hays",
+    image: "https://purina.com.pe/sites/default/files/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg"
+  },
+  {
+    id: 2,
+    name: "Ricardo Gómez",
+    image: "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    id: 3, 
+    name: "Ana López",
+    image: "https://randomuser.me/api/portraits/women/44.jpg"
+  },
+  {
+    id: 4,
+    name: "Carlos Ruiz",
+    image: "https://randomuser.me/api/portraits/men/75.jpg"
+  }
+];
+
+    // Datos iniciales
+    let taskLists = JSON.parse(localStorage.getItem("taskLists")) || [];
+    let categories = JSON.parse(localStorage.getItem("categories")) || [
+      { name: "Trabajo", color: "#7c5fff", icon: "💼" },
+      { name: "Estudio", color: "#4caf50", icon: "📚" },
+      { name: "Personal", color: "#2196F3", icon: "👤" },
+      { name: "Hogar", color: "#ffb300", icon: "🏠" }
+    ];
+    let currentListIndex = null;
+    let currentTaskIndex = null;
+    let confirmAction = null;
+    let confirmParams = null;
+
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', () => {
+      renderLists();
+    });
+
+    // Función para contar tareas por usuario
+    function countUserTasks(userId) {
+      let pending = 0;
+      let completed = 0;
+
+      taskLists.forEach(list => {
+        list.tasks.forEach(task => {
+          if (task.assignedUserId === userId) {
+            if (task.completed) {
+              completed++;
+            } else {
+              pending++;
+            }
+          }
+        });
+      });
+
+      return { pending, completed };
+    }
+
+    // Función para actualizar los contadores en el perfil
+function updateProfileCounters() {
+  const counts = countUserTasks(currentUserId);
+  
+  const pendingElement = document.getElementById("pending-tasks-count");
+  const completedElement = document.getElementById("completed-tasks-count");
+  
+  if (pendingElement) pendingElement.textContent = counts.pending;
+  if (completedElement) completedElement.textContent = counts.completed;
+}
+
+    // Funciones para listas de tareas
+function renderLists() {
+  const container = document.getElementById("lists-container");
+  container.innerHTML = "";
+
+  if (taskLists.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty__icon">📂</div>
+        <h3 class="empty__title">Sin listas de tareas</h3>
+        <p class="empty__desc">Presioná el botón + para crear una nueva lista de tareas.</p>
+      </div>
+    `;
+    return;
+  }
+
+  taskLists.forEach((list, index) => {
+    const pendingTasks = list.tasks.filter(t => !t.completed).length;
+    const totalTasks = list.tasks.length;
+
+    const listElement = document.createElement("div");
+    listElement.className = "list";
+    listElement.style.borderLeft = `4px solid ${list.category?.color || "#7c5fff"}`;
+
+    listElement.innerHTML = `
+      <div class="list__header">
+        <span class="list__icon">${list.category?.icon || "📋"}</span>
+        <h3 class="list__title">${list.title}</h3>
+      </div>
+
+      ${list.category ? `
+        <div class="list__category">
+          <span class="list__category-color" style="background: ${list.category.color}"></span>
+          ${list.category.name}
+        </div>
+      ` : ''}
+
+      <div class="list__stats">
+        <span class="list__stat list__stat--pending">${pendingTasks} pendientes</span>
+        <span class="list__stat">${totalTasks} total</span>
+      </div>
+    `;
+
+    listElement.addEventListener("click", () => showTasks(index));
+    container.appendChild(listElement);
+  });
+}
+
+    function showTasks(listIndex) {
+      currentListIndex = listIndex;
+      document.getElementById("lists-container").style.display = "none";
+      document.getElementById("tasks-container").style.display = "block";
+      document.getElementById("current-list-name").textContent = taskLists[listIndex].title;
+      renderTasks();
+    }
+
+    function showLists() {
+      document.getElementById("lists-container").style.display = "grid";
+      document.getElementById("tasks-container").style.display = "none";
+      currentListIndex = null;
+    }
+
+    function openListModal(index = null) {
+      currentListIndex = index;
+      const modal = document.getElementById("listModal");
+      document.getElementById("listModalTitle").innerText = index === null ? "Agregar lista de tareas" : "Editar lista";
+      
+      // Renderizar opciones de categoría
+      renderCategoryOptions();
+      
+      if (index !== null) {
+        const list = taskLists[index];
+        document.getElementById("listTitle").value = list.title;
+        document.getElementById("listDesc").value = list.desc || "";
+        
+        if (list.category) {
+          document.getElementById("listCategory").value = list.category.name;
+        }
+      } else {
+        document.getElementById("listTitle").value = "";
+        document.getElementById("listDesc").value = "";
+      }
+      
+      modal.style.display = "flex";
+    }
+
+    function renderCategoryOptions() {
+      const select = document.getElementById("listCategory");
+      select.innerHTML = categories.map(cat => `
+        <option value="${cat.name}" data-color="${cat.color}" data-icon="${cat.icon}">
+          ${cat.icon} ${cat.name}
+        </option>
+      `).join('');
+      
+      if (currentListIndex !== null && taskLists[currentListIndex].category) {
+        const currentCat = taskLists[currentListIndex].category;
+        select.value = currentCat.name;
+      }
+    }
+
+    function closeListModal() {
+      document.getElementById("listModal").style.display = "none";
+    }
+
+    function saveTaskList() {
+      const title = document.getElementById("listTitle").value.trim();
+      if (!title) return alert("El nombre de la lista es requerido");
+      
+      const desc = document.getElementById("listDesc").value.trim();
+      const categorySelect = document.getElementById("listCategory");
+      const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+      
+      const categoryData = {
+        name: selectedOption.value,
+        color: selectedOption.dataset.color,
+        icon: selectedOption.dataset.icon
+      };
+      
+      if (currentListIndex !== null) {
+        // Editar lista existente
+        taskLists[currentListIndex] = {
+          ...taskLists[currentListIndex],
+          title,
+          desc,
+          category: categoryData
+        };
+      } else {
+        // Crear nueva lista
+        taskLists.push({
+          title,
+          desc,
+          category: categoryData,
+          tasks: [],
+          createdAt: new Date().toISOString()
+        });
+      }
+      
+      saveData();
+      renderLists();
+      closeListModal();
+    }
+
+    function confirmDeleteList(index) {
+      currentListIndex = index;
+      showConfirm(
+        "Eliminar lista", 
+        `¿Estás seguro que deseas eliminar la lista "${taskLists[index].title}" y todas sus tareas?`,
+        deleteList
+      );
+    }
+
+    function deleteList() {
+      taskLists.splice(currentListIndex, 1);
+      saveData();
+      renderLists();
+      showLists();
+      closeConfirmModal();
+      updateProfileCounters(); // Actualizar contadores al eliminar lista
+    }
+
+    // Funciones para categorías
+    function openCategoryModal() {
+      renderCategoriesList();
+      document.getElementById("categoryModal").style.display = "flex";
+    }
+
+    function closeCategoryModal() {
+      document.getElementById("categoryModal").style.display = "none";
+    }
+
+    function openNewCategoryModal() {
+      document.getElementById("newCategoryModal").style.display = "flex";
+    }
+
+    function closeNewCategoryModal() {
+      document.getElementById("newCategoryModal").style.display = "none";
+    }
+
+    function renderCategoriesList() {
+      const container = document.getElementById("categories-list");
+      container.innerHTML = "";
+      
+      categories.forEach((cat, index) => {
+        const catElement = document.createElement("div");
+        catElement.style.display = "flex";
+        catElement.style.alignItems = "center";
+        catElement.style.marginBottom = "0.5rem";
+        catElement.style.padding = "0.5rem";
+        catElement.style.backgroundColor = "#2c2c2c";
+        catElement.style.borderRadius = "5px";
+        
+        catElement.innerHTML = `
+          <span style="margin-right: 0.5rem; font-size: 1.2rem;">${cat.icon}</span>
+          <span style="flex-grow: 1;">${cat.name}</span>
+          <span style="width: 20px; height: 20px; background-color: ${cat.color}; border-radius: 50%; margin-right: 0.5rem;"></span>
+          <button onclick="deleteCategory(${index})" style="background: var(--danger); color: white; border: none; border-radius: 3px; padding: 0.2rem 0.5rem;">Eliminar</button>
+        `;
+        
+        container.appendChild(catElement);
+      });
+    }
+
+    function saveNewCategory() {
+      const name = document.getElementById("categoryName").value.trim();
+      if (!name) return alert("El nombre es requerido");
+      
+      const icon = document.getElementById("categoryIcon").value.trim() || "📋";
+      const color = document.getElementById("categoryColor").value;
+      
+      categories.push({ name, icon, color });
+      saveData();
+      renderCategoryOptions();
+      closeNewCategoryModal();
+      renderCategoriesList();
+    }
+
+    function deleteCategory(index) {
+      const categoryInUse = taskLists.some(list => list.category?.name === categories[index].name);
+      
+      if (categoryInUse) {
+        alert("No puedes eliminar esta categoría porque está en uso por alguna lista");
+        return;
+      }
+      
+      categories.splice(index, 1);
+      saveData();
+      renderCategoryOptions();
+      renderCategoriesList();
+    }
+
+function renderTasks() {
+  const container = document.getElementById("tasks-list");
+  container.innerHTML = "";
+
+  if (currentListIndex === null) return;
+
+  const tasks = taskLists[currentListIndex].tasks;
+  if (tasks.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty__icon">🗒️</div>
+        <h3 class="empty__title">No hay tareas en esta lista</h3>
+        <p class="empty__desc">Podés agregar una nueva tarea con el botón de abajo.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const completedTasks = tasks.filter(t => t.completed).length;
+  const pendingTasks = tasks.length - completedTasks;
+
+  tasks.forEach((task, index) => {
+    const taskElement = document.createElement("div");
+    taskElement.className = `task-item${task.completed ? " task-item--completed" : ""}`;
+
+    const dueDate = task.dueDate ? new Date(task.dueDate) : null;
+    const priorityText = {
+      'low': 'Baja',
+      'normal': 'Normal',
+      'high': 'Alta',
+      'urgent': 'Urgente'
+    }[task.priority || 'normal'];
+
+    const assignedUser = task.assignedUserId
+      ? users.find(u => u.id === task.assignedUserId)
+      : null;
+
+    const canToggle = task.assignedUserId === currentUserId;
+    const checkboxDisabled = !canToggle ? 'disabled' : '';
+    const checkboxTitle = !canToggle ? 'title="Solo el usuario asignado puede marcar esta tarea como completada"' : '';
+
+    taskElement.innerHTML = `
+      <div class="task-item__header">
+        <input type="checkbox" class="task-item__checkbox"
+               ${task.completed ? 'checked' : ''}
+               ${checkboxDisabled}
+               ${checkboxTitle}
+               data-index="${index}">
+        <h4 class="task-item__title">${task.title}</h4>
+        <span class="task-item__priority task-item__priority--${task.priority || 'normal'}">${priorityText}</span>
+      </div>
+
+      ${task.desc ? `<p class="task-item__desc">${task.desc}</p>` : ''}
+
+      <div class="task-item__meta">
+        <div class="task-item__info">
+          ${assignedUser ? `
+            <span class="task-item__assigned">
+              <img src="${assignedUser.image}" alt="${assignedUser.name}" class="task-item__avatar">
+              ${assignedUser.name}
+            </span>` : ''}
+          ${dueDate ? `
+            <span class="task-item__due-date">
+              📅 ${dueDate.toLocaleDateString()} 
+              ${dueDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </span>` : ''}
+        </div>
+        <div>
+          <small class="task-item__created">${new Date(task.createdAt).toLocaleDateString()}</small>
+        </div>
+      </div>
+
+      <div class="task-item__actions">
+        <button class="btn btn--text" onclick="openDateModal(${index})">📅 Fecha</button>
+        <button class="btn btn--text" onclick="editTask(${index})">✏️ Editar</button>
+        <button class="btn btn--text" onclick="confirmDeleteTask(${index})">❌ Eliminar</button>
+      </div>
+    `;
+
+    if (canToggle) {
+      const checkbox = taskElement.querySelector('.task-item__checkbox');
+      checkbox.addEventListener('change', function () {
+        const taskIndex = parseInt(this.getAttribute('data-index'));
+        toggleTaskCompletion(taskIndex);
+      });
+    }
+
+    container.appendChild(taskElement);
+  });
+}
+
+
+
+function toggleTaskCompletion(index) {
+  const task = taskLists[currentListIndex].tasks[index];
+  task.completed = !task.completed;
+  saveData();
+  renderTasks();
+  updateProfileCounters();
+}
+function toggleTaskCompletion(index) {
+  const task = taskLists[currentListIndex].tasks[index];
+  task.completed = !task.completed;
+  saveData();
+  renderTasks();
+  updateProfileCounters();
+}
+
+
+    function openTaskModal(index = null) {
+      currentTaskIndex = index;
+      const modal = document.getElementById("taskModal");
+      document.getElementById("taskModalTitle").innerText = index === null ? "Agregar tarea" : "Editar tarea";
+      
+      renderUserOptions();
+      
+      if (index !== null) {
+        const task = taskLists[currentListIndex].tasks[index];
+        document.getElementById("taskTitle").value = task.title;
+        document.getElementById("taskDesc").value = task.desc || "";
+        document.getElementById("taskAssigned").value = task.assignedUserId || "";
+        document.getElementById("taskPriority").value = task.priority || "normal";
+        
+        if (task.dueDate) {
+          const dueDate = new Date(task.dueDate);
+          document.getElementById("taskDueDate").value = dueDate.toISOString().split('T')[0];
+          document.getElementById("taskDueTime").value = dueDate.toTimeString().substring(0, 5);
+        } else {
+          document.getElementById("taskDueDate").value = "";
+          document.getElementById("taskDueTime").value = "";
+        }
+      } else {
+        document.getElementById("taskTitle").value = "";
+        document.getElementById("taskDesc").value = "";
+        document.getElementById("taskAssigned").value = "";
+        document.getElementById("taskPriority").value = "normal";
+        
+        const now = new Date();
+        document.getElementById("taskDueDate").value = now.toISOString().split('T')[0];
+        document.getElementById("taskDueTime").value = now.toTimeString().substring(0, 5);
+      }
+      
+      modal.style.display = "flex";
+    }
+
+    function editTask(index) {
+      openTaskModal(index);
+    }
+
+    function closeTaskModal() {
+      document.getElementById("taskModal").style.display = "none";
+    }
+
+    function saveTask() {
+      const title = document.getElementById("taskTitle").value.trim();
+      if (!title) return alert("El título de la tarea es requerido");
+
+      const desc = document.getElementById("taskDesc").value.trim();
+      const assignedUserId = document.getElementById("taskAssigned").value;
+      const priority = document.getElementById("taskPriority").value;
+
+      const dueDate = document.getElementById("taskDueDate").value;
+      const dueTime = document.getElementById("taskDueTime").value;
+      const dueDateTime = dueDate && dueTime ? new Date(`${dueDate}T${dueTime}`).toISOString() : null;
+
+      const taskData = {
+        title,
+        desc,
+        assignedUserId: assignedUserId ? parseInt(assignedUserId) : null,
+        priority,
+        dueDate: dueDateTime,
+        completed: false,
+        createdAt: new Date().toISOString()
+      };
+
+      if (currentTaskIndex !== null) {
+        taskLists[currentListIndex].tasks[currentTaskIndex] = {
+          ...taskLists[currentListIndex].tasks[currentTaskIndex],
+          ...taskData
+        };
+      } else {
+        taskLists[currentListIndex].tasks.push(taskData);
+      }
+
+      saveData();
+      renderTasks();
+      closeTaskModal();
+      updateProfileCounters(); // Actualizar contadores al guardar tarea
+    }
+
+    function openDateModal(index) {
+      currentTaskIndex = index;
+      const task = taskLists[currentListIndex].tasks[index];
+      
+      document.getElementById("dateModalTaskTitle").innerText = task.title;
+      
+      if (task.dueDate) {
+        const dueDate = new Date(task.dueDate);
+        document.getElementById("editDueDate").value = dueDate.toISOString().split('T')[0];
+        document.getElementById("editDueTime").value = dueDate.toTimeString().substring(0, 5);
+      } else {
+        const now = new Date();
+        document.getElementById("editDueDate").value = now.toISOString().split('T')[0];
+        document.getElementById("editDueTime").value = now.toTimeString().substring(0, 5);
+      }
+      
+      document.getElementById("dateModal").style.display = "flex";
+    }
+
+    function closeDateModal() {
+      document.getElementById("dateModal").style.display = "none";
+    }
+
+    function updateTaskDate() {
+      const dueDate = document.getElementById("editDueDate").value;
+      const dueTime = document.getElementById("editDueTime").value;
+      
+      if (dueDate && dueTime) {
+        taskLists[currentListIndex].tasks[currentTaskIndex].dueDate = new Date(`${dueDate}T${dueTime}`).toISOString();
+        saveData();
+        renderTasks();
+      }
+      
+      closeDateModal();
+    }
+
+    function confirmDeleteTask(index) {
+      currentTaskIndex = index;
+      const task = taskLists[currentListIndex].tasks[index];
+      
+      showConfirm(
+        "Eliminar tarea", 
+        `¿Estás seguro que deseas eliminar la tarea "${task.title}"?`,
+        deleteTask
+      );
+    }
+
+    function deleteTask() {
+      taskLists[currentListIndex].tasks.splice(currentTaskIndex, 1);
+      saveData();
+      renderTasks();
+      closeConfirmModal();
+      updateProfileCounters(); // Actualizar contadores al eliminar tarea
+    }
+
+    function showConfirm(title, message, action, params = null) {
+      document.getElementById("confirmModalTitle").innerText = title;
+      document.getElementById("confirmModalMessage").innerText = message;
+      confirmAction = action;
+      confirmParams = params;
+      document.getElementById("confirmModal").style.display = "flex";
+    }
+
+    function closeConfirmModal() {
+      document.getElementById("confirmModal").style.display = "none";
+    }
+
+    function executeConfirmedAction() {
+      if (confirmAction) {
+        confirmAction();
+        closeConfirmModal();
+      }
+    }
+
+    function confirmDeleteAll() {
+      showConfirm(
+        "Eliminar todas las tareas", 
+        "¿Estás seguro que deseas eliminar TODAS las listas y tareas? Esta acción no se puede deshacer.",
+        deleteAll
+      );
+    }
+
+    function deleteAll() {
+      taskLists = [];
+      saveData();
+      renderLists();
+      showLists();
+      updateProfileCounters(); // Actualizar contadores al eliminar todo
+    }
+
+    function saveData() {
+      localStorage.setItem("taskLists", JSON.stringify(taskLists));
+      localStorage.setItem("categories", JSON.stringify(categories));
+
+      updateWeeklyGoal();
+      renderUsersSummary();
+    }
+
+    window.onclick = function(event) {
+      if (event.target.className === "modal") {
+        document.querySelectorAll('.modal').forEach(modal => {
+          modal.style.display = 'none';
+        });
+      }
+    }
+
+    function openProfileModal() {
+      updateProfileCounters(); // Actualizar contadores al abrir el perfil
+      document.getElementById("profileModal").style.display = "flex";
+    }
+
+    function closeProfileModal() {
+      document.getElementById("profileModal").style.display = "none";
+    }
+
+    function logout() {
+      alert("Sesión cerrada");
+      closeProfileModal();
+    }
+
+    function renderUserOptions() {
+      const select = document.getElementById("taskAssigned");
+      select.innerHTML = '<option value="">Seleccionar usuario</option>';
+      
+      users.forEach(user => {
+        const option = document.createElement("option");
+        option.value = user.id;
+        option.textContent = user.name;
+        select.appendChild(option);
+      });
+      
+      if (currentTaskIndex !== null) {
+        const task = taskLists[currentListIndex].tasks[currentTaskIndex];
+        if (task.assignedUserId) {
+          select.value = task.assignedUserId;
+        }
+      }
+    }
+
+  function updateWeeklyGoal() {
+  const goal = 5; // Objetivo semanal
+  const completed = countAllCompletedTasks();
+  const progress = Math.min(100, (completed / goal) * 100);
+  
+  document.getElementById('goal-progress').style.width = `${progress}%`;
+}
+
+function countAllCompletedTasks() {
+  let total = 0;
+  taskLists.forEach(list => {
+    total += list.tasks.filter(task => task.completed).length;
+  });
+  return total;
+}
+
+function renderUsersSummary() {
+  const container = document.getElementById('users-summary-body');
+  container.innerHTML = '';
+  
+  users.forEach(user => {
+    const counts = countUserTasks(user.id);
+    const totalTasks = counts.pending + counts.completed;
+    const progress = totalTasks > 0 ? (counts.completed / totalTasks) * 100 : 0;
+    
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>
+        <img src="${user.image}" alt="${user.name}" class="user-avatar-small">
+        ${user.name}
+      </td>
+      <td>${counts.pending}</td>
+      <td>${counts.completed}</td>
+      <td>
+        <div class="user-progress">
+          <div class="user-progress-bar" style="width: ${progress}%"></div>
+        </div>
+        ${Math.round(progress)}%
+      </td>
+    `;
+    container.appendChild(row);
+  });
+}
+
+</script>
+
+
+</HomeLayout> 

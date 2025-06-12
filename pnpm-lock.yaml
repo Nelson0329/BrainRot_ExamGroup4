@@ -10,7 +10,11 @@ importers:
     dependencies:
       astro:
         specifier: ^5.8.0
-        version: 5.8.0(@types/node@22.15.21)(rollup@4.41.1)(typescript@5.8.3)
+        version: 5.8.0(@types/node@22.15.21)(rollup@4.41.1)(typescript@5.8.3)(yaml@2.8.0)
+    devDependencies:
+      '@astrojs/ts-plugin':
+        specifier: ^1.10.4
+        version: 1.10.4
 
 packages:
 
@@ -527,8 +531,8 @@ packages:
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
 
-  astro@5.8.1:
-    resolution: {integrity: sha512-lkBg1smMRFW+FQ6i92SgEN53o4+ItRjlRt6Ck+rEjmTcb57Bid7faTNKUQNYuNnxiesTWw3NJDyVPQPbfKDyfw==}
+  astro@5.8.0:
+    resolution: {integrity: sha512-G57ELkdIntDiSrucA5lQaRtBOjquaZ9b9NIwoz2f471ZuuJcynLjWgItgBzlrz5UMY4WqnFbVWUCKlJb7nt9bA==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -1888,7 +1892,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@5.8.0(@types/node@22.15.21)(rollup@4.41.1)(typescript@5.8.3):
+  astro@5.8.0(@types/node@22.15.21)(rollup@4.41.1)(typescript@5.8.3)(yaml@2.8.0):
     dependencies:
       '@astrojs/compiler': 2.12.0
       '@astrojs/internal-helpers': 0.6.1
@@ -1943,8 +1947,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.16.0
       vfile: 6.0.3
-      vite: 6.3.5(@types/node@22.15.21)
-      vitefu: 1.0.6(vite@6.3.5(@types/node@22.15.21))
+      vite: 6.3.5(@types/node@22.15.21)(yaml@2.8.0)
+      vitefu: 1.0.6(vite@6.3.5(@types/node@22.15.21)(yaml@2.8.0))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.3
@@ -2342,7 +2346,7 @@ snapshots:
   magicast@0.3.5:
     dependencies:
       '@babel/parser': 7.27.2
-      '@babel/types': 7.27.1
+      '@babel/types': 7.27.3
       source-map-js: 1.2.1
 
   markdown-table@3.0.4: {}
@@ -3088,7 +3092,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite@6.3.5(@types/node@22.15.21):
+  vite@6.3.5(@types/node@22.15.21)(yaml@2.8.0):
     dependencies:
       esbuild: 0.25.5
       fdir: 6.4.5(picomatch@4.0.2)
@@ -3101,9 +3105,13 @@ snapshots:
       fsevents: 2.3.3
       yaml: 2.8.0
 
-  vitefu@1.0.6(vite@6.3.5(@types/node@22.15.21)):
+  vitefu@1.0.6(vite@6.3.5(@types/node@22.15.21)(yaml@2.8.0)):
     optionalDependencies:
-      vite: 6.3.5(@types/node@22.15.21)
+      vite: 6.3.5(@types/node@22.15.21)(yaml@2.8.0)
+
+  vscode-languageserver-textdocument@1.0.12: {}
+
+  vscode-uri@3.1.0: {}
 
   web-namespaces@2.0.1: {}
 
