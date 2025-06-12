@@ -1,0 +1,318 @@
+---
+import QuizLayout from "../layouts/quizLayout.astro";
+
+const brainrotImages = [
+    '/images/ballerina.jpg',
+    '/images/bombardino.jpg',
+    '/images/lirili.jpg',
+    '/images/tralala.jpg',
+    '/images/tung-tung.jpg'
+];
+---
+
+<QuizLayout title="Bienvenido a BrainRot Do List" description="Organiza tus tareas con un toque de locura inspirada en Brain Rot.">
+    <div class="intro-container">
+        <div class="main-title-group">
+            <div class="icon-check">✓</div>
+            <h1>BrainRot Do List</h1>
+        </div>
+        
+        <p class="tagline">¿Estás listo para dominar tus tareas con un toque de locura organizada?</p>
+        <p class="description">
+            En un mundo lleno de distracciones, ¿quién mejor para ayudarte a mantener el rumbo que personajes creados por IA? Prepárate para conocer BrainRot Do List, tu nueva lista de tareas personal o grupal que combina la seriedad de la organización con la diversión inigualable de los memes "Brain Rot".
+        </p>
+
+        <div class="brainrot-images-grid">
+            <div class="image-row">
+                {brainrotImages.slice(0, 3).map((src, index) => (
+                    <div class="image-wrapper">
+                        <img src={src} alt={`BrainRot Character ${index + 1}`} />
+                    </div>
+                ))}
+            </div>
+
+            <div class="image-row">
+                {brainrotImages.slice(3, 5).map((src, index) => (
+                    <div class="image-wrapper">
+                        <img src={src} alt={`BrainRot Character ${index + 4}`} />
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <div class="features-section">
+            <h2>¿Qué podés hacer con BrainRot Do List?</h2>
+            <ul>
+                <li>Organizar tu caos</li>
+                <li>No olvidar nada</li>
+                <li>Conseguir un poco de "brain rot" productivo</li>
+                <li>Disfrutar de la simplicidad</li>
+            </ul>
+        </div>
+
+        <div class="auth-buttons-container">
+            <a href="/myForm" class="button primary">Comencemos</a> 
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>Si querés contactarnos por cualquier error o para saber más de los creadores de la aplicación <a href="/contact" class="footer-link">contactanos</a>.</p>
+    </footer>
+
+</QuizLayout>
+
+<style>
+    /* --- Variables CSS (Las mismas que en Intro y Quiz) --- */
+    :root {
+        --primary-bg: #2a2a2a;
+        --secondary-bg: #3a3a3a;
+        --text-light: #e0e0e0;
+        --text-medium: #b0b0b0;
+        --accent-color: #7f52f3;
+        --accent-hover: #6a44d0;
+        --button-default-bg: #4a4a4a;
+        --button-default-hover-bg: #5a5a5a;
+        --selected-option-bg: var(--accent-color);
+        --selected-option-border: var(--accent-hover);
+        --disabled-bg: #353535;
+        --disabled-text: #606060;
+        --border-color-subtle: #444444;
+    }
+
+    .intro-container {
+        max-width: 450px;
+        width: 90%;
+        margin: 2rem auto;
+        padding: 2.5rem 1.5rem;
+        background-color: var(--primary-bg);
+        border-radius: 18px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        border: 1px solid var(--border-color-subtle);
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem; 
+    }
+
+    .main-title-group { 
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        gap: 10px; 
+        width: 100%; 
+        margin-bottom: 0; 
+    }
+
+    .icon-check {
+        font-size: 2.5rem; 
+        color: var(--accent-color);
+        line-height: 1;
+        margin-bottom: 0; 
+    }
+
+    .intro-container h1 {
+        font-size: 2.5rem;
+        color: var(--text-light);
+        margin-bottom: 0; 
+        line-height: 1.2;
+        padding: 0;
+        width: auto;
+    }
+
+    .intro-container .tagline {
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding: 0 0.5rem;
+        max-width: 350px;
+        text-align: center;
+    }
+
+    .intro-container .description {
+        font-size: 0.95rem;
+        color: var(--text-medium);
+        margin-bottom: 2rem;
+        line-height: 1.5;
+        padding: 0 0.5rem;
+        max-width: 380px;
+        text-align: center;
+    }
+
+    .brainrot-images-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 2.5rem;
+        width: 100%;
+        max-width: 350px;
+        align-items: center;
+    }
+
+    .image-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .image-wrapper {
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 8px;
+        background-color: var(--secondary-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 100px;
+        height: 100px;
+    }
+
+    .image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .features-section {
+        text-align: left;
+        margin-bottom: 2.5rem;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .features-section h2 {
+        font-size: 1.8rem;
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .features-section ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        max-width: 300px; 
+        margin: 0 auto; 
+    }
+
+    .features-section li {
+        font-size: 1rem;
+        color: var(--text-medium);
+        position: relative;
+        padding-left: 25px;
+        text-align: left;
+    }
+
+    .features-section li::before {
+        content: '✓';
+        color: var(--accent-color);
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+    }
+
+    .auth-buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .button {
+        display: block;
+        padding: 0.9rem 1.5rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .button.primary {
+        background-color: var(--accent-color);
+        color: var(--text-light);
+        border: 1px solid var(--accent-color);
+    }
+
+    .button.primary:hover {
+        background-color: var(--accent-hover);
+        transform: translateY(-2px);
+        border-color: var(--accent-hover);
+    }
+
+    .button.secondary { 
+        background-color: var(--button-default-bg);
+        color: var(--text-light);
+        border: 1px solid var(--border-color-subtle);
+    }
+
+    .button.secondary:hover { 
+        background-color: var(--button-default-hover-bg);
+        transform: translateY(-2px);
+        border-color: var(--button-default-hover-bg);
+    }
+
+    .main-footer {
+        width: 100%;
+        max-width: 450px;
+        margin: 2rem auto 1rem auto;
+        padding: 1.5rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--text-medium);
+        border-top: 1px solid var(--border-color-subtle);
+        box-sizing: border-box;
+    }
+
+    .main-footer .footer-link {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .main-footer .footer-link:hover {
+        color: var(--accent-hover);
+        text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+        .intro-container {
+            padding: 2rem 1rem;
+            margin: 1rem auto;
+        }
+
+        .intro-container h1 {
+            font-size: 2rem;
+        }
+
+        .intro-container .tagline {
+            font-size: 1.1rem;
+        }
+
+        .intro-container .description {
+            font-size: 0.9rem;
+        }
+
+        .image-wrapper {
+            width: 80px;
+            height: 80px;
+        }
+
+        .main-footer {
+            margin: 1.5rem auto 0.5rem auto;
+            padding: 1rem;
+            font-size: 0.8rem;
+        }
+    }
+</style>
