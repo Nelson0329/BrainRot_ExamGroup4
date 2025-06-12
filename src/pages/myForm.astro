@@ -33,14 +33,14 @@ import FormLayout from "../layouts/FormLayout.astro";
         <a href="#" id="container__link">Iniciar sesión</a>
       </p>
     </form>
-    <hr>
-    <button class="contact__button" onclick="window.history.back()">Volver Atrás</button>
+    <hr />
+    <button class="contact__button" onclick="window.history.back()"
+      >Volver Atrás</button
+    >
   </div>
-
 </FormLayout>
 
 <style>
-
   :root {
     --primary-bg: #2a2a2a;
     --secondary-bg: #3a3a3a;
@@ -56,7 +56,6 @@ import FormLayout from "../layouts/FormLayout.astro";
     --disabled-text: #606060;
     --border-color-subtle: #444444;
   }
-
 
   *,
   *::after,
@@ -84,7 +83,6 @@ import FormLayout from "../layouts/FormLayout.astro";
     border: none;
     border-top: 1px solid oklch(0.3867 0 0);
   }
-
 
   .container {
     position: relative;
@@ -117,7 +115,7 @@ import FormLayout from "../layouts/FormLayout.astro";
     width: 100%;
     padding: 0.8rem;
     margin-top: 1rem;
-    background: var(--accent-color); 
+    background: var(--accent-color);
     color: var(--text-light);
     border: none;
     border-radius: 6px;
@@ -131,7 +129,7 @@ import FormLayout from "../layouts/FormLayout.astro";
     width: 100%;
     padding: 0.8rem;
     margin-top: 1rem;
-    background: var(--accent-color); 
+    background: var(--accent-color);
     color: var(--text-light);
     border: none;
     border-radius: 6px;
@@ -141,10 +139,8 @@ import FormLayout from "../layouts/FormLayout.astro";
     transition: background 0.3s;
   }
 
-
-
   .container__button:hover {
-    background: var(--accent-hover); 
+    background: var(--accent-hover);
   }
 
   .container__text {
@@ -167,18 +163,17 @@ import FormLayout from "../layouts/FormLayout.astro";
   }
 
   .contact__button:hover {
-    background: var(--accent-hover); 
-  } 
+    background: var(--accent-hover);
+  }
 
   #container__link {
     text-decoration: none;
     color: var(--accent-color);
   }
 
-   #container__link:hover {
+  #container__link:hover {
     color: var(--accent-hover);
   }
-
 
   @media (max-width: 768px) {
     .container {
@@ -188,7 +183,8 @@ import FormLayout from "../layouts/FormLayout.astro";
       font-size: 1.3rem;
     }
     .container__input,
-    .container__button, .contact__button {
+    .container__button,
+    .contact__button {
       font-size: 0.95rem;
       padding: 0.7rem;
     }
@@ -286,7 +282,7 @@ import FormLayout from "../layouts/FormLayout.astro";
     const savedPassword = localStorage.getItem("password");
 
     if (username === savedUsername && password === savedPassword) {
-      alert("Inicio de sesión exitoso.");
+      window.location.href = "/home";
     } else {
       alert("Credenciales incorrectas.");
     }

@@ -37,11 +37,12 @@ import FormContact from "../layouts/FormContact.astro";
       <button type="submit" class="container__button">Enviar</button>
     </form>
   </div>
-  <button class="contact__button" onclick="window.history.back()">Volver Atrás</button>
+  <button class="contact__button" onclick="window.history.back()"
+    >Volver Atrás</button
+  >
 </FormContact>
 
 <style>
-  
   :root {
     --primary-bg: #2a2a2a;
     --secondary-bg: #3a3a3a;
@@ -68,8 +69,8 @@ import FormContact from "../layouts/FormContact.astro";
 
   body {
     font-family: sans-serif;
-    background: var(--primary-bg); 
-    color: var(--text-light); 
+    background: var(--primary-bg);
+    color: var(--text-light);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,86 +79,90 @@ import FormContact from "../layouts/FormContact.astro";
   }
 
   .container {
-    background: var(--primary-bg); 
-    padding: 2.5rem 1.5rem; 
-    border-radius: 18px; 
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); 
+    background: var(--primary-bg);
+    padding: 2.5rem 1.5rem;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 450px; 
-    margin-bottom: 2em; 
-    border: 1px solid var(--border-color-subtle); 
-    box-sizing: border-box; 
+    max-width: 450px;
+    margin-bottom: 2em;
+    border: 1px solid var(--border-color-subtle);
+    box-sizing: border-box;
   }
 
   .container__title {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: var(--text-light); 
-    font-size: 2.2rem; 
+    color: var(--text-light);
+    font-size: 2.2rem;
   }
 
   label {
     margin-top: 1rem;
     display: block;
-    color: var(--text-medium); 
+    color: var(--text-medium);
     font-size: 0.95rem;
-    text-align: left; 
+    text-align: left;
   }
 
   .contact__button {
     position: absolute;
     top: 1rem;
     left: 1rem;
-    background: var(--button-default-bg); 
-    color: var(--text-light); 
+    background: var(--button-default-bg);
+    color: var(--text-light);
     border: none;
-    border-radius: 10px; 
-    padding: 0.8rem 1.2rem; 
-    font-weight: 600; 
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
   }
 
   .container__input {
     width: 100%;
     margin: 0.5rem 0;
     padding: 0.8rem;
-    border-radius: 10px; 
-    border: 1px solid var(--border-color-subtle); 
-    background: var(--secondary-bg); 
-    color: var(--text-light); 
+    border-radius: 10px;
+    border: 1px solid var(--border-color-subtle);
+    background: var(--secondary-bg);
+    color: var(--text-light);
     font-size: 1rem;
-    caret-color: var(--text-light); 
+    caret-color: var(--text-light);
   }
 
   #mensaje {
-    font-family: sans-serif; 
+    font-family: sans-serif;
   }
 
   .container__input:focus {
     outline: none;
-    border: 1px solid var(--accent-color); 
-    box-shadow: 0 0 6px var(--accent-color); 
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 0 6px var(--accent-color);
   }
 
   .container__button {
     width: 100%;
-    padding: 0.9rem 1.5rem; 
-    margin-top: 1.5rem; 
-    background: var(--accent-color); 
-    color: var(--text-light); 
+    padding: 0.9rem 1.5rem;
+    margin-top: 1.5rem;
+    background: var(--accent-color);
+    color: var(--text-light);
     border: none;
-    border-radius: 10px; 
-    font-weight: 700; 
+    border-radius: 10px;
+    font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; 
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
   }
 
   .container__button:hover {
-    background: var(--accent-hover); 
-    transform: translateY(-2px); 
+    background: var(--accent-hover);
+    transform: translateY(-2px);
   }
 
   /* Media queries para responsividad*/
@@ -178,14 +183,22 @@ import FormContact from "../layouts/FormContact.astro";
 </style>
 
 <script>
-  const form = document.getElementById("contacto__formulario") as HTMLFormElement;
+  const form = document.getElementById(
+    "contacto__formulario"
+  ) as HTMLFormElement;
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const nombre = (document.getElementById("nombre") as HTMLInputElement).value.trim();
-    const email = (document.getElementById("email") as HTMLInputElement).value.trim();
-    const mensaje = (document.getElementById("mensaje") as HTMLTextAreaElement).value.trim();
+    const nombre = (
+      document.getElementById("nombre") as HTMLInputElement
+    ).value.trim();
+    const email = (
+      document.getElementById("email") as HTMLInputElement
+    ).value.trim();
+    const mensaje = (
+      document.getElementById("mensaje") as HTMLTextAreaElement
+    ).value.trim();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
