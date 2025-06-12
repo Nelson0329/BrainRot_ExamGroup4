@@ -24,12 +24,7 @@ import FormContact from "../layouts/FormContact.astro";
         required
       />
 
-      <label
-        for="mensaje"
-        style="margin-top: 1rem; display: block; color: oklch(1 0 0);"
-      >
-        Mensaje
-      </label>
+      <label for="mensaje">Mensaje</label>
       <textarea
         class="container__input"
         id="mensaje"
@@ -42,8 +37,27 @@ import FormContact from "../layouts/FormContact.astro";
       <button type="submit" class="container__button">Enviar</button>
     </form>
   </div>
+  <button class="contact__button" onclick="window.history.back()">Volver Atrás</button>
 </FormContact>
+
 <style>
+  
+  :root {
+    --primary-bg: #2a2a2a;
+    --secondary-bg: #3a3a3a;
+    --text-light: #e0e0e0;
+    --text-medium: #b0b0b0;
+    --accent-color: #7f52f3;
+    --accent-hover: #6a44d0;
+    --button-default-bg: #4a4a4a;
+    --button-default-hover-bg: #5a5a5a;
+    --selected-option-bg: var(--accent-color);
+    --selected-option-border: var(--accent-hover);
+    --disabled-bg: #353535;
+    --disabled-text: #606060;
+    --border-color-subtle: #444444;
+  }
+
   *,
   *::after,
   *::before {
@@ -54,71 +68,115 @@ import FormContact from "../layouts/FormContact.astro";
 
   body {
     font-family: sans-serif;
-    background: oklch(0.1822 0 0);
-    color: oklch(1 0 0);
+    background: var(--primary-bg); 
+    color: var(--text-light); 
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 1rem;
-    overflow: hidden;
-    caret-color: transparent;
   }
 
   .container {
-    background: oklch(0.235 0 0);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    background: var(--primary-bg); 
+    padding: 2.5rem 1.5rem; 
+    border-radius: 18px; 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); 
     width: 100%;
-    max-width: 400px;
-    margin-bottom: 2em;
+    max-width: 450px; 
+    margin-bottom: 2em; 
+    border: 1px solid var(--border-color-subtle); 
+    box-sizing: border-box; 
   }
 
   .container__title {
     text-align: center;
     margin-bottom: 1.5rem;
+    color: var(--text-light); 
+    font-size: 2.2rem; 
+  }
+
+  label {
+    margin-top: 1rem;
+    display: block;
+    color: var(--text-medium); 
+    font-size: 0.95rem;
+    text-align: left; 
+  }
+
+  .contact__button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--button-default-bg); 
+    color: var(--text-light); 
+    border: none;
+    border-radius: 10px; 
+    padding: 0.8rem 1.2rem; 
+    font-weight: 600; 
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
 
   .container__input {
     width: 100%;
     margin: 0.5rem 0;
     padding: 0.8rem;
-    border-radius: 6px;
-    border: 1px solid oklch(0.3867 0 0);
-    background: oklch(0.2931 0 0);
-    color: oklch(1 0 0);
+    border-radius: 10px; 
+    border: 1px solid var(--border-color-subtle); 
+    background: var(--secondary-bg); 
+    color: var(--text-light); 
     font-size: 1rem;
+    caret-color: var(--text-light); 
   }
 
   #mensaje {
-    font-family: sans-serif;
-  }
-
-  .container__button {
-    width: 100%;
-    padding: 0.8rem;
-    margin-top: 1rem;
-    background: oklch(0.7554 0.1534 231.64);
-    color: oklch(0 0 0);
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .container__button:hover {
-    background: oklch(0.6648 0.124885 224.0294);
+    font-family: sans-serif; 
   }
 
   .container__input:focus {
     outline: none;
-    border: 0.5px solid oklch(0.7554 0.1534 231.64);
-    box-shadow: 0 0 6px oklch(0.7554 0.1534 231.64 / 53.33%);
-    caret-color: white;
+    border: 1px solid var(--accent-color); 
+    box-shadow: 0 0 6px var(--accent-color); 
+  }
+
+  .container__button {
+    width: 100%;
+    padding: 0.9rem 1.5rem; 
+    margin-top: 1.5rem; 
+    background: var(--accent-color); 
+    color: var(--text-light); 
+    border: none;
+    border-radius: 10px; 
+    font-weight: 700; 
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+  }
+
+  .container__button:hover {
+    background: var(--accent-hover); 
+    transform: translateY(-2px); 
+  }
+
+  /* Media queries para responsividad*/
+  @media (max-width: 480px) {
+    .container {
+      padding: 2rem 1rem;
+      margin: 1rem auto;
+    }
+
+    .container__title {
+      font-size: 2rem;
+    }
+
+    label {
+      font-size: 0.9rem;
+    }
   }
 </style>
+
 <script>
   const form = document.getElementById("contacto__formulario") as HTMLFormElement;
 
@@ -145,4 +203,3 @@ import FormContact from "../layouts/FormContact.astro";
     form.reset();
   });
 </script>
-
