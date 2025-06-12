@@ -33,10 +33,31 @@ import FormLayout from "../layouts/FormLayout.astro";
         <a href="#" id="container__link">Iniciar sesión</a>
       </p>
     </form>
+    <hr>
+    <button class="contact__button" onclick="window.history.back()">Volver Atrás</button>
   </div>
-  <a href="/contact" class="contact__button">Contacto</a>
+
 </FormLayout>
+
 <style>
+
+  :root {
+    --primary-bg: #2a2a2a;
+    --secondary-bg: #3a3a3a;
+    --text-light: #e0e0e0;
+    --text-medium: #b0b0b0;
+    --accent-color: #7f52f3;
+    --accent-hover: #6a44d0;
+    --button-default-bg: #4a4a4a;
+    --button-default-hover-bg: #5a5a5a;
+    --selected-option-bg: var(--accent-color);
+    --selected-option-border: var(--accent-hover);
+    --disabled-bg: #353535;
+    --disabled-text: #606060;
+    --border-color-subtle: #444444;
+  }
+
+
   *,
   *::after,
   *::before {
@@ -46,10 +67,10 @@ import FormLayout from "../layouts/FormLayout.astro";
   }
 
   body {
+    display: flex;
     font-family: sans-serif;
     background: oklch(0.1822 0 0);
-    color: oklch(1 0 0);
-    display: flex;
+    color: var(--text-light);
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -57,6 +78,13 @@ import FormLayout from "../layouts/FormLayout.astro";
     overflow: hidden;
     caret-color: transparent;
   }
+
+  hr {
+    margin: 15px 0 0 0;
+    border: none;
+    border-top: 1px solid oklch(0.3867 0 0);
+  }
+
 
   .container {
     position: relative;
@@ -89,8 +117,8 @@ import FormLayout from "../layouts/FormLayout.astro";
     width: 100%;
     padding: 0.8rem;
     margin-top: 1rem;
-    background: oklch(0.7554 0.1534 231.64);
-    color: oklch(0 0 0);
+    background: var(--accent-color); 
+    color: var(--text-light);
     border: none;
     border-radius: 6px;
     font-weight: bold;
@@ -99,8 +127,24 @@ import FormLayout from "../layouts/FormLayout.astro";
     transition: background 0.3s;
   }
 
+  .contact__button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    background: var(--accent-color); 
+    color: var(--text-light);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+
+
   .container__button:hover {
-    background: oklch(0.6648 0.124885 224.0294);
+    background: var(--accent-hover); 
   }
 
   .container__text {
@@ -122,24 +166,19 @@ import FormLayout from "../layouts/FormLayout.astro";
     caret-color: white;
   }
 
-  .contact__button {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background: oklch(0.7554 0.1534 231.64);
-    color: oklch(0 0 0);
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
+  .contact__button:hover {
+    background: var(--accent-hover); 
+  } 
+
+  #container__link {
     text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s;
-    cursor: pointer;
-    z-index: 10;
+    color: var(--accent-color);
   }
 
-  .contact__button:hover {
-    background: oklch(0.6648 0.124885 224.0294);
+   #container__link:hover {
+    color: var(--accent-hover);
   }
+
 
   @media (max-width: 768px) {
     .container {
@@ -149,7 +188,7 @@ import FormLayout from "../layouts/FormLayout.astro";
       font-size: 1.3rem;
     }
     .container__input,
-    .container__button {
+    .container__button, .contact__button {
       font-size: 0.95rem;
       padding: 0.7rem;
     }
