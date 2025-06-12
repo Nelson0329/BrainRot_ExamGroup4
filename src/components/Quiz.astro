@@ -17,9 +17,13 @@ const { questions, results } = Astro.props;
         <p id="result-description"></p>
         <div id="result-image-container">
         </div>
-        <button id="restart-button" onclick="location.reload()">Volver a Jugar</button>
+        <div id="result-buttons">
+            <button id="restart-button" onclick="location.reload()">Volver a Jugar</button>
+            <button id="home-button" onclick="location.href">Ir a inicio</button>
+        </div>
     </div>
 </div>
+
 
 
 <style>
@@ -108,7 +112,7 @@ const { questions, results } = Astro.props;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    #next-button, #restart-button {
+    #next-button, #restart-button, #home-button {
         /* Hacemos el botón un poco más pequeño */
         padding: 1rem 2.2rem; 
         font-size: 1.15rem; 
@@ -122,10 +126,17 @@ const { questions, results } = Astro.props;
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
         font-weight: 600;
     }
-    #next-button:hover, #restart-button:hover {
+
+    #next-button:hover, #restart-button:hover, #home-button:hover {
         background-color: var(--accent-hover);
         transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    #result-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     #result-container {
@@ -163,7 +174,8 @@ const { questions, results } = Astro.props;
         align-items:center;
         justify-content: center;
         text-align: center; 
-        width: 100%; 
+        width: 95%;
+        justify-self: center; 
     }
     
     #result-image-container { 
@@ -176,21 +188,23 @@ const { questions, results } = Astro.props;
     }
 
     #result-image {
-        border: 5px solid var(--accent-color);
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-        
-        /* Estas propiedades son ahora un poco redundantes con flexbox en el padre, pero las mantenemos para robustez */
-        /* Eliminé !important porque con la corrección del padre ya no deberían ser necesarias */
-        display: block; 
-        margin: 0 auto; /* Margin auto para img dentro de un flex container NO es necesario si align-items: center está en el padre */
-        
-        width: 100%; 
-        max-width: 400px; /* Ajusta este valor si quieres un tamaño específico */
-        height: auto;
+    border: 5px solid var(--accent-color);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px; 
+    height: auto;
     }
 
-    /* Media Queries para que sea responsiv */
+    @media (max-width: 480px) { 
+            #result-image {
+            max-width: 280px; 
+        }
+        }
+
+    
     @media (max-width: 768px) {
         #quiz-container {
             padding: 1.5rem 1rem; 
@@ -206,7 +220,7 @@ const { questions, results } = Astro.props;
             font-size: 1.1rem;
             padding: 2rem 2rem;
         }
-        #next-button, #restart-button {
+        #next-button, #restart-button, #home-button {
             font-size: 0.80rem; 
             padding: 0.7rem 1.2rem; 
             margin-top: 1.5rem; 
