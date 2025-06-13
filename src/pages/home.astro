@@ -899,13 +899,32 @@
           font-size: 2rem;
         }
 
-        .lists {
-          grid-template-columns: 1fr;
+        .goal {
+          padding: 1rem;
+          max-width: 98vw;
         }
 
-        .users__table {
-          display: block;
-          overflow-x: auto;
+        .users {
+          padding: 1rem;
+        }
+
+        .lists {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .list {
+          padding: 1rem;
+        }
+
+        .tasks__header {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .tasks__title {
+          font-size: 1.1rem;
         }
 
         .fab {
@@ -915,128 +934,168 @@
           height: 50px;
           font-size: 1.25rem;
         }
+
+        .modal__content {
+          padding: 1rem;
+          max-width: 98vw;
+        }
+
+        .profile-modal__content {
+          max-width: 95vw;
+        }
       }
 
-      /* Mejoras para inputs de fecha y hora */
-      .date-time {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
-      }
+      @media (max-width: 480px) {
+        .app {
+          padding: 0.3rem;
+        }
 
-      /* Badges */
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.35rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-      }
+        .header {
+          padding-bottom: 1rem;
+        }
 
-      .badge--primary {
-        background: rgba(124, 95, 255, 0.1);
-        color: var(--primary);
-      }
+        .header__title {
+          font-size: 1.2rem;
+        }
 
-      /* Scrollbar personalizada */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
+        .header__subtitle {
+          font-size: 0.9rem;
+        }
 
-      ::-webkit-scrollbar-track {
-        background: var(--darker-gray);
-      }
+        .goal {
+          padding: 0.7rem;
+          border-radius: 8px;
+          margin: 1rem auto;
+        }
 
-      ::-webkit-scrollbar-thumb {
-        background: var(--primary);
-        border-radius: 4px;
-      }
+        .goal__title {
+          font-size: 1rem;
+        }
 
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-light);
-      }
+        .goal__icon {
+          font-size: 1.2rem;
+        }
 
-      .modal__content {
-        background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 16px;
-        width: 90%;
-        max-width: 500px;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        animation: slideUp 0.3s ease;
-      }
+        .users {
+          padding: 0.7rem;
+          border-radius: 8px;
+        }
 
-      .modal__title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.75rem;
-      }
+        .users__title {
+          font-size: 1rem;
+        }
 
-      .modal__message {
-        margin-bottom: 1.5rem;
-        font-size: 1rem;
-        color: var(--text-light);
-      }
+        .lists {
+          gap: 0.7rem;
+        }
 
-      .modal__buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 0.75rem;
-        margin-top: 1.5rem;
-      }
+        .list {
+          padding: 0.7rem;
+          border-radius: 8px;
+        }
 
-      .btn--cancel {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
+        .list__title {
+          font-size: 1rem;
+        }
 
-      .btn--cancel:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-      }
+        .list__desc {
+          font-size: 0.8rem;
+        }
 
-      .btn--confirm {
-        background-color: var(--danger);
-        color: white;
-      }
+        .list__stats {
+          gap: 0.5rem;
+        }
 
-      .btn--confirm:hover {
-        background-color: #ff6b81;
-      }
+        .tasks__header {
+          flex-direction: column;
+          gap: 0.7rem;
+        }
 
-      .btn--save {
-        background-color: var(--success);
-        color: white;
-      }
+        .tasks__title {
+          font-size: 1rem;
+        }
 
-      .btn--save:hover {
-        background-color: #41e18c;
-      }
+        .tasks__back-btn {
+          padding: 0.5rem 0.8rem;
+          font-size: 0.85rem;
+          border-radius: 6px;
+        }
 
-      .category__list {
-        margin-bottom: 1rem;
-      }
-      .user-avatar-small {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        object-fit: cover;
-        vertical-align: middle;
-        margin-right: 4px;
-      }
-      .task-item__avatar {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 0.5rem;
-        vertical-align: middle;
+        .tasks__list {
+          padding: 0.7rem;
+          border-radius: 8px;
+        }
+
+        .task-item__title,
+        .task__title {
+          font-size: 0.95rem;
+        }
+
+        .task-item__desc,
+        .task__desc {
+          font-size: 0.8rem;
+        }
+
+        .task-item__priority,
+        .task__priority {
+          font-size: 0.7rem;
+          padding: 0.15rem 0.5rem;
+        }
+
+        .task-item__meta,
+        .task__meta {
+          font-size: 0.7rem;
+          flex-direction: column;
+          gap: 0.3rem;
+        }
+
+        .task-item__actions,
+        .task__actions {
+          gap: 0.3rem;
+        }
+
+        .task-item__actions button,
+        .task__actions button {
+          font-size: 0.7rem;
+          padding: 0.3rem 0.5rem;
+          border-radius: 5px;
+        }
+
+        .fab {
+          bottom: 1rem;
+          right: 1rem;
+          width: 40px;
+          height: 40px;
+          font-size: 1rem;
+        }
+
+        .modal__content {
+          padding: 0.7rem;
+          border-radius: 10px;
+          max-width: 99vw;
+        }
+
+        .profile-modal__content {
+          max-width: 99vw;
+        }
+
+        .profile-modal__header {
+          padding: 1rem;
+        }
+
+        .profile-modal__name {
+          font-size: 1.1rem;
+        }
+
+        .profile-modal__stat-value {
+          font-size: 1rem;
+        }
+
+        .profile-modal__btn {
+          font-size: 0.9rem;
+          padding: 0.7rem;
+          border-radius: 7px;
+        }
       }
     </style>
   </head>
@@ -1398,16 +1457,6 @@
             name: username,
             image: imagePath,
           },
-          {
-            id: 2,
-            name: "Ricardo",
-            image: "/images/lirili.jpg",
-          },
-          {
-            id: 3,
-            name: "Usuario 3",
-            image: "https://via.placeholder.com/150?text=User+3",
-          }
         ];
 
         // Datos iniciales

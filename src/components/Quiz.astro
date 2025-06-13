@@ -29,7 +29,6 @@ const { questions, results } = Astro.props;
 </div>
 
 <style>
-  /* Variables CSS para una gestión de colores más sencilla, a partir de los colores usados en el Figma*/
   :root {
     --primary-bg: #2a2a2a;
     --secondary-bg: #3a3a3a;
@@ -120,7 +119,6 @@ const { questions, results } = Astro.props;
   #next-button,
   #restart-button,
   #home-button {
-    /* Hacemos el botón un poco más pequeño */
     padding: 1rem 2.2rem;
     font-size: 1.15rem;
     background-color: var(--accent-color);
@@ -149,6 +147,8 @@ const { questions, results } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
   #result-container {
@@ -209,45 +209,94 @@ const { questions, results } = Astro.props;
     height: auto;
   }
 
-  @media (max-width: 480px) {
-    #result-image {
-      max-width: 280px;
-    }
-  }
-
+  /* Tablet (≤ 768px) */
   @media (max-width: 768px) {
     #quiz-container {
       padding: 1.5rem 1rem;
       margin: 1rem auto;
-      width: 95%;
-      max-width: 350px;
+      width: 98vw;
+      max-width: 98vw;
     }
     #question-text {
-      font-size: 1.6rem;
-      min-height: 90px;
+      font-size: 1.3rem;
+      min-height: 60px;
+      padding: 0 0.5rem;
     }
     #options-container button {
-      font-size: 1.1rem;
-      padding: 2rem 2rem;
+      font-size: 1rem;
+      padding: 1rem 1rem;
+      border-radius: 10px;
     }
     #next-button,
     #restart-button,
     #home-button {
-      font-size: 0.8rem;
+      font-size: 1rem;
       padding: 0.7rem 1.2rem;
       margin-top: 1.5rem;
+      border-radius: 10px;
+    }
+    #result-title {
+      font-size: 2rem;
+    }
+    #result-description {
+      font-size: 1.05rem;
+      padding: 0 0.5rem;
+    }
+    #result-image {
+      max-width: 220px;
+    }
+    #result-buttons {
+      flex-direction: column;
+      gap: 0.7rem;
     }
   }
-  #result-title {
-    font-size: 2.2rem;
-  }
-  #result-description {
-    font-size: 1.2rem;
-  }
-  #result-image {
-    justify-content: center;
-    align-items: center;
-    max-width: 280px !important;
+
+  /* Celular (≤ 480px) */
+  @media (max-width: 480px) {
+    #quiz-container {
+      padding: 0.7rem 0.2rem;
+      margin: 0.5rem auto;
+      border-radius: 10px;
+      width: 100vw;
+      max-width: 100vw;
+    }
+    #question-text {
+      font-size: 1rem;
+      min-height: 40px;
+      padding: 0 0.2rem;
+    }
+    #options-container {
+      gap: 0.7rem;
+    }
+    #options-container button {
+      font-size: 0.85rem;
+      padding: 0.6rem 0.5rem;
+      border-radius: 7px;
+    }
+    #next-button,
+    #restart-button,
+    #home-button {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.7rem;
+      margin-top: 1rem;
+      border-radius: 7px;
+    }
+    #result-title {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+    #result-description {
+      font-size: 0.9rem;
+      padding: 0 0.2rem;
+    }
+    #result-image {
+      max-width: 140px;
+      border-radius: 8px;
+    }
+    #result-buttons {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 
   @keyframes fadeIn {
