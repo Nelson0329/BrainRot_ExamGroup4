@@ -1,46 +1,57 @@
-# Astro Starter Kit: Minimal
+# BrainRot Do List 🧠📝
+¡Organiza tu caos con un toque de locura inspirada en Brain Rot!
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+## Descripción del Proyecto
 
-## Pagina Quiz de Brainrot para la elección de un avatar:
+BrainRot Do List es una innovadora aplicación web diseñada para ayudarte a gestionar tus tareas diarias o grupales, combinando la seriedad de la organización con el humor absurdo y creativo de los memes "Brain Rot" generados por IA. En un mundo lleno de distracciones, ¿quién mejor para ayudarte a mantener el rumbo que personajes peculiares y memorables?
 
-¡Hola! Soy Fiorella Terranova me encargué de realizar el quiz de Brainrot, transformando los diseños de Figma en una experiencia web interactiva y responsive. 
+Este proyecto busca ofrecer una experiencia de lista de tareas sencilla, funcional y visualmente atractiva, manteniendo una identidad única inspirada en el fenómeno "Brain Rot". Es una herramienta perfecta para quienes buscan una forma divertida y poco convencional de mantenerse productivos.
 
-### Tareas realizadas:
+## Características Principales
 
-1. **Diseño Fiel a Figma:** Implementación de la paleta de colores, tipografía y elementos interactivos, para mantener la estética original del proyecto creado en Figma. URL del Figma: "https://www.figma.com/design/iwa3AcQh527pDcN04vQQE4/UpTodo---Todo-list-app-UI-Kit--Community-?node-id=0-1&m=dev&t=CtAqprXLDGuDsqfm-1"
-2. **Desarrollo con Astro:** Creación de componentes (`Quiz.astro`, `quizLayout.astro`) para una arquitectura limpia.
-3. **Lógica Frontend:** Programación del flujo del quiz, desde la selección de preguntas y respuestas hasta la presentación de resultados.
-4. **Responsividad:** Ajustes detallados con `@media queries` para asegurar una experiencia fluida y visualmente atractiva en cualquier dispositivo, especialmente móviles. 
+* **Listas de Tareas:** Crea y organiza tus tareas de forma individual o colaborativa.
+* **Interfaz Intuitiva:** Un diseño limpio y fácil de usar para una gestión de tareas sin complicaciones.
+* **Estilo "Brain Rot":** Integración visual de personajes y estéticas inspiradas en memes generados por IA para un toque único y divertido.
+* **Diseño Responsivo:** Adaptado para funcionar en cualquier dispositivo (móvil, tablet, escritorio).
+* **Formulario de Contacto:** Un canal directo para retroalimentación o consultas.
+* **Formulario de Autenticación:** Crear cuenta / Iniciar sesión, para gestionar usuarios y sus listas de tareas.
 
-### Instalación y Ejecución para el funcionamiento del Proyecto:
+## Tecnologías Utilizadas
 
-Para probar el quiz en tu entorno local, sigue estos pasos:
+* **Astro.js:** Framework web moderno y de alto rendimiento para construir la interfaz de usuario.
+* **HTML5:** Estructura de contenido web.
+* **CSS3 (con Metodología BEM):** Estilos y diseño visual, implementando una convención de nomenclatura modular y escalable para el CSS.
+* **JavaScript:** Interactividad y lógica del lado del cliente (ej. validaciones de formularios, funcionalidad de autenticación).
+* **CSS:** Para una gestión de estilos consistente y fácil de mantener a través de todo el proyecto.
 
-1.  **Clonar el repositorio:**
+## Estructura del Proyecto (Archivos Clave)
+
+* `src/pages/index.astro`: Página de bienvenida y presentación del proyecto.
+* `src/pages/quizBrainRot.astro`: Sección de quiz e interacción lúdica relacionada con el tema "Brain Rot", para que el usuario eliga su avatar. 
+* `src/pages/contact.astro`: Formulario de contacto para que los usuarios puedan comunicarse con nosotros por errores o propuestas.
+* `src/pages/myForm.astro`: Formularios de autenticación (Crear cuenta / Iniciar sesión).
+* `public/images/`: Contendrá las imágenes de los personajes "Brain Rot" generados por IA.
+* `src/layouts/...`: Contendrá los componentes de layout de la estructura de cada página de la aplicación.
+
+
+## Cómo Ejecutar el Proyecto Localmente
+
+Para poner en marcha "BrainRot Do List" en tu entorno de desarrollo, sigue estos pasos:
+
+1.  **Clona el repositorio (si aplica):**
     ```bash
-    git clone https://github.com/Nelson0329/BrainRot_ExamGroup4.git
-    cd BrainRot_ExamGroup4
+    git clone git@github.com:Nelson0329/BrainRot_ExamGroup4.git
+    cd brainrot-do-list
     ```
-
-2.  **Instalar dependencias:**
-    Asegúrate de tener [pnpm](https://pnpm.io/installation) instalado globalmente (`npm install -g pnpm`), luego ejecuta:
+2.  **Instala las dependencias:**
     ```bash
     pnpm install
     ```
-
-3.  **Iniciar el servidor de desarrollo:**
+3.  **Inicia el servidor de desarrollo:**
     ```bash
     pnpm dev
     ```
-    El quiz estará disponible en `http://localhost:4321/`.
+    Esto iniciará el servidor de desarrollo en `http://localhost:4323` 
 
-4.  **Generar versión para producción (opcional):**
-    ```bash
-    pnpm build
-    ```
-    -> Esto creará una carpeta `dist/` con el sitio optimizado.
-
-¡Espero que disfrutes explorando este quiz super divertido, y así sabes que Brain Rot sos!
+4.  **Abre en tu navegador:**
+    Visita `http://localhost:4323` para ver la aplicación en funcionamiento.
