@@ -1,6 +1,12 @@
 # BrainRot Do List 🧠📝
 ¡Organiza tu caos con un toque de locura inspirada en Brain Rot!
 
+# Proyecto desarrollado por el Grupo 4 de la Fundación Integrar:
+
+Alain Laureano Luis Milla
+Fiorella Belen Terranova
+Nelson David Salto
+
 ## Descripción del Proyecto
 
 BrainRot Do List es una innovadora aplicación web diseñada para ayudarte a gestionar tus tareas diarias o grupales, combinando la seriedad de la organización con el humor absurdo y creativo de los memes "Brain Rot" generados por IA. En un mundo lleno de distracciones, ¿quién mejor para ayudarte a mantener el rumbo que personajes peculiares y memorables?
