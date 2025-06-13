@@ -404,6 +404,11 @@ const { questions, results } = Astro.props;
       resultDescription.textContent = finalResult.description;
       console.log("finalResult encontrado:", finalResult);
       console.log("Ruta de imagen a cargar:", finalResult.imagePath);
+
+      //probando si se guarda en localStorage
+
+      localStorage.setItem("resultImagePath", finalResult.imagePath);
+
       resultImageContainer.innerHTML = `
                 <img id="result-image" src="${finalResult.imagePath}" alt="${finalResult.name}" style="max-width: 300px; height: auto; border-radius: 8px; display: block;">
             `;

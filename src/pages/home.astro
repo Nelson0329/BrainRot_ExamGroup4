@@ -1046,6 +1046,7 @@
         <!-- Círculo de perfil -->
         <div class="profile" onclick="openProfileModal()">
           <img
+            id="header-profile-img"
             src="https://purina.com.pe/sites/default/files/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg"
             alt="Foto de perfil"
             class="profile__img"
@@ -1131,13 +1132,13 @@
           <div class="profile-modal__header">
             <div class="profile profile--large">
               <img
-                src="https://purina.com.pe/sites/default/files/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg"
+                id="profile-img"
+                src="https://via.placeholder.com/150"
                 alt="Foto de perfil"
                 class="profile__img"
               />
             </div>
-            <h2 class="profile-modal__name">Martha Hays</h2>
-            <p class="profile-modal__email">martha@ejemplo.com</p>
+            <h2 id="profile-name" class="profile-modal__name">Nombre</h2>
 
             <div class="profile-modal__stats">
               <div class="profile-modal__stat">
@@ -1161,21 +1162,20 @@
           <div class="profile-modal__actions">
             <button
               class="profile-modal__btn profile-modal__btn--contact"
-              onclick="window.location.href='mailto:soporte@ejemplo.com'"
+              onclick="window.location.href='/contact'"
             >
               <i class="fas fa-envelope"></i> Contacto
             </button>
 
             <button
               class="profile-modal__btn profile-modal__btn--logout"
-              onclick="logout()"
+              onclick="window.location.href='/myForm'"
             >
               <i class="fas fa-sign-out-alt"></i> Cerrar sesión
             </button>
           </div>
         </div>
       </div>
-
       <!-- Modal para lista de tareas -->
       <div id="listModal" class="modal">
         <div class="modal__content">
@@ -2135,6 +2135,23 @@
             container.appendChild(row);
           });
         }
+        document.addEventListener("DOMContentLoaded", () => {
+          const username = localStorage.getItem("username");
+          const imagePath = localStorage.getItem("resultImagePath");
+
+          const nameElement = document.getElementById("profile-name");
+          const imageElement = document.getElementById("profile-img");
+          const headerImg = document.getElementById("header-profile-img");
+
+          if (username && nameElement) {
+            nameElement.textContent = username;
+          }
+
+          if (imagePath) {
+            if (imageElement) imageElement.src = imagePath;
+            if (headerImg) headerImg.src = imagePath;
+          }
+        });
       </script>
     </div>
   </body>
