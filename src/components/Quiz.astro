@@ -2,6 +2,7 @@
 const { questions, results } = Astro.props;
 ---
 
+
 <div id="quiz-container"
     data-questions={JSON.stringify(questions)}  
     data-results={JSON.stringify(results)}      
@@ -19,9 +20,7 @@ const { questions, results } = Astro.props;
         </div>
         <div id="result-buttons">
             <button id="restart-button" onclick="location.reload()">Volver a Jugar</button>
-            <button id="home-button" onclick="window.location.href='/home'">Ir a inicio</button>
-            <!--  <button id="home-button" onclick="location.href">Ir a inicio</button>-->
-            
+            <button id="home-button" onclick="location.href">Ir a inicio</button>
         </div>
     </div>
 </div>
@@ -273,7 +272,6 @@ const { questions, results } = Astro.props;
 
     // Función para cargar la pregunta actual en la interfaz:
     function loadQuestion() {
-        // Añadir una verificación básica para asegurarnos de que los elementos existan:
         if (!questionText || !optionsContainer || !quizContainer || !resultContainer || !restartButton || !nextButton) {
             console.error("Error: Algunos elementos del DOM no se encontraron. Asegúrate de que los IDs sean correctos.");
             return; 
