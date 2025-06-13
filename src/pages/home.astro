@@ -1023,12 +1023,12 @@
         margin-bottom: 1rem;
       }
       .user-avatar-small {
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         object-fit: cover;
-        margin-right: 0.5rem;
         vertical-align: middle;
+        margin-right: 4px;
       }
       .task-item__avatar {
         width: 28px;
@@ -1385,31 +1385,29 @@
       <script is:inline>
         // Función para abrir el modal de perfil
 
-        const currentUserId = 1; // ID de Martha Hays como usuario actual
+        // Generar lista de usuarios desde localStorage
+        const username = localStorage.getItem("username") || "Usuario";
+        const imagePath =
+          localStorage.getItem("resultImagePath") ||
+          "https://via.placeholder.com/150";
+        const currentUserId = 1; // Puedes mantener este ID fijo si solo hay un usuario
 
-        // Lista de usuarios disponibles
         const users = [
           {
-            id: 1,
-            name: "Martha Hays",
-            image:
-              "https://purina.com.pe/sites/default/files/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg",
+            id: currentUserId,
+            name: username,
+            image: imagePath,
           },
           {
             id: 2,
-            name: "Ricardo Gómez",
-            image: "https://randomuser.me/api/portraits/men/32.jpg",
+            name: "Ricardo",
+            image: "/images/lirili.jpg",
           },
           {
             id: 3,
-            name: "Ana López",
-            image: "https://randomuser.me/api/portraits/women/44.jpg",
-          },
-          {
-            id: 4,
-            name: "Carlos Ruiz",
-            image: "https://randomuser.me/api/portraits/men/75.jpg",
-          },
+            name: "Usuario 3",
+            image: "https://via.placeholder.com/150?text=User+3",
+          }
         ];
 
         // Datos iniciales
@@ -1428,6 +1426,7 @@
         // Inicialización
         document.addEventListener("DOMContentLoaded", () => {
           renderLists();
+          updateProfileCounters(); // <-- Agrega esta línea
         });
 
         // Función para contar tareas por usuario
@@ -1756,6 +1755,17 @@
               ? 'title="Solo el usuario asignado puede marcar esta tarea como completada"'
               : "";
 
+            let assignedHtml = "";
+            const user = users.find((u) => u.id === task.assignedUserId);
+            if (user) {
+              assignedHtml = `
+    <span class="task__assigned">
+      <img src="${user.image}" alt="${user.name}" class="user-avatar-small" />
+      ${user.name}
+    </span>
+  `;
+            }
+
             taskElement.innerHTML = `
       <div class="task-item__header">
         <input type="checkbox" class="task-item__checkbox"
@@ -1844,9 +1854,8 @@
             document.getElementById("taskTitle").value = task.title;
             document.getElementById("taskDesc").value = task.desc || "";
             document.getElementById("taskAssigned").value =
-              task.assignedUserId || "";
-            document.getElementById("taskPriority").value =
-              task.priority || "normal";
+              document.getElementById("taskPriority").value =
+                task.priority || "normal";
 
             if (task.dueDate) {
               const dueDate = new Date(task.dueDate);
@@ -1891,7 +1900,8 @@
           if (!title) return alert("El título de la tarea es requerido");
 
           const desc = document.getElementById("taskDesc").value.trim();
-          const assignedUserId = document.getElementById("taskAssigned").value;
+          const assignedUserIdRaw = document.getElementById("taskAssigned").value;
+          const assignedUserId = assignedUserIdRaw ? parseInt(assignedUserIdRaw) : null;
           const priority = document.getElementById("taskPriority").value;
 
           const dueDate = document.getElementById("taskDueDate").value;
@@ -1904,7 +1914,7 @@
           const taskData = {
             title,
             desc,
-            assignedUserId: assignedUserId ? parseInt(assignedUserId) : null,
+            assignedUserId,
             priority,
             dueDate: dueDateTime,
             completed: false,
@@ -1923,7 +1933,7 @@
           saveData();
           renderTasks();
           closeTaskModal();
-          updateProfileCounters(); // Actualizar contadores al guardar tarea
+          updateProfileCounters();
         }
 
         function openDateModal(index) {
@@ -2059,6 +2069,7 @@
           const select = document.getElementById("taskAssigned");
           select.innerHTML = '<option value="">Seleccionar usuario</option>';
 
+          // Mostrar todos los usuarios del array users
           users.forEach((user) => {
             const option = document.createElement("option");
             option.value = user.id;
