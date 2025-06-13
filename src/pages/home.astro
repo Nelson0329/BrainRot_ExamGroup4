@@ -1076,32 +1076,15 @@
           </div>
         </div>
 
-      <div class="users">
-        <h3 class="users__title">Resumen de Usuarios</h3>
-        <table class="users__table">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Pendientes</th>
-              <th>Completadas</th>
-              <th>Progreso</th>
-            </tr>
-          </thead>
-          <tbody id="users-summary-body">
-            <!-- Se llenará con JavaScript -->
-          </tbody>
-        </table>
+        <div class="header__actions">
+          <button class="btn btn--outline" onclick="openCategoryModal()">
+            <i class="fas fa-tags"></i> Gestionar categorías
+          </button>
+          <button class="btn btn--danger" onclick="confirmDeleteAll()">
+            <i class="fas fa-trash"></i> Borrar todas las tareas
+          </button>
+        </div>
       </div>
-      
-      <div class="header__actions">
-        <button class="btn btn--outline" onclick="openCategoryModal()">
-          <i class="fas fa-tags"></i> Gestionar categorías
-        </button>
-        <button class="btn btn--danger" onclick="confirmDeleteAll()">
-          <i class="fas fa-trash"></i> Borrar todas las tareas
-        </button>
-      </div>
-    </div>
 
       <!-- Contenedores principales -->
       <div id="lists-container" class="lists"></div>
@@ -2109,6 +2092,7 @@
 
         function renderUsersSummary() {
           const container = document.getElementById("users-summary-body");
+          if (!container) return;
           container.innerHTML = "";
 
           users.forEach((user) => {
