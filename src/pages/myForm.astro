@@ -33,14 +33,14 @@ import FormLayout from "../layouts/FormLayout.astro";
         <a href="#" id="container__link">Iniciar sesión</a>
       </p>
     </form>
-    <hr>
-    <button class="contact__button" onclick="window.history.back()">Volver Atrás</button>
+    <hr />
+    <button class="contact__button" onclick="window.history.back()"
+      >Volver Atrás</button
+    >
   </div>
-
 </FormLayout>
 
 <style>
-
   :root {
     --primary-bg: #2a2a2a;
     --secondary-bg: #3a3a3a;
@@ -56,7 +56,6 @@ import FormLayout from "../layouts/FormLayout.astro";
     --disabled-text: #606060;
     --border-color-subtle: #444444;
   }
-
 
   *,
   *::after,
@@ -85,7 +84,6 @@ import FormLayout from "../layouts/FormLayout.astro";
     border-top: 1px solid oklch(0.3867 0 0);
   }
 
-
   .container {
     position: relative;
     background: oklch(0.235 0 0);
@@ -95,11 +93,14 @@ import FormLayout from "../layouts/FormLayout.astro";
     width: 100%;
     max-width: 400px;
     margin-bottom: 2em;
+    transition: padding 0.2s, max-width 0.2s;
   }
 
   .container__title {
     text-align: center;
     margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    transition: font-size 0.2s;
   }
 
   .container__input {
@@ -111,40 +112,27 @@ import FormLayout from "../layouts/FormLayout.astro";
     background: oklch(0.2931 0 0);
     color: oklch(1 0 0);
     font-size: 1rem;
+    transition: font-size 0.2s, padding 0.2s;
   }
 
-  .container__button {
-    width: 100%;
-    padding: 0.8rem;
-    margin-top: 1rem;
-    background: var(--accent-color); 
-    color: var(--text-light);
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
+  .container__button,
   .contact__button {
     width: 100%;
     padding: 0.8rem;
     margin-top: 1rem;
-    background: var(--accent-color); 
+    background: var(--accent-color);
     color: var(--text-light);
     border: none;
     border-radius: 6px;
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s, font-size 0.2s, padding 0.2s;
   }
 
-
-
-  .container__button:hover {
-    background: var(--accent-hover); 
+  .container__button:hover,
+  .contact__button:hover {
+    background: var(--accent-hover);
   }
 
   .container__text {
@@ -166,51 +154,58 @@ import FormLayout from "../layouts/FormLayout.astro";
     caret-color: white;
   }
 
-  .contact__button:hover {
-    background: var(--accent-hover); 
-  } 
-
   #container__link {
     text-decoration: none;
     color: var(--accent-color);
   }
 
-   #container__link:hover {
+  #container__link:hover {
     color: var(--accent-hover);
   }
 
-
+  /* Tablet (≤ 768px) */
   @media (max-width: 768px) {
     .container {
-      padding: 1.5rem;
-    }
-    .container__title {
-      font-size: 1.3rem;
-    }
-    .container__input,
-    .container__button, .contact__button {
-      font-size: 0.95rem;
-      padding: 0.7rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .container {
-      padding: 1rem;
+      padding: 1.2rem;
+      max-width: 95vw;
     }
     .container__title {
       font-size: 1.2rem;
     }
     .container__input,
-    .container__button {
-      font-size: 0.9rem;
-      padding: 0.6rem;
+    .container__button,
+    .contact__button {
+      font-size: 0.95rem;
+      padding: 0.7rem;
+    }
+  }
+
+  /* Celular (≤ 480px) */
+  @media (max-width: 480px) {
+    body {
+      padding: 0.5rem;
+    }
+    .container {
+      padding: 0.7rem;
+      max-width: 100vw;
+      border-radius: 8px;
+      margin-bottom: 1em;
+    }
+    .container__title {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .container__input,
+    .container__button,
+    .contact__button {
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+    .container__text {
+      font-size: 0.8rem;
     }
     .contact__button {
-      bottom: 0.5rem;
-      right: 0.5rem;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
+      margin-top: 0.7rem;
     }
   }
 </style>
@@ -286,7 +281,7 @@ import FormLayout from "../layouts/FormLayout.astro";
     const savedPassword = localStorage.getItem("password");
 
     if (username === savedUsername && password === savedPassword) {
-      alert("Inicio de sesión exitoso.");
+      window.location.href = "/home";
     } else {
       alert("Credenciales incorrectas.");
     }
