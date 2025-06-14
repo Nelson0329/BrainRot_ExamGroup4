@@ -19,7 +19,7 @@ const { questions, results } = Astro.props;
         </div>
         <div id="result-buttons">
             <button id="restart-button" onclick="location.reload()">Volver a Jugar</button>
-            <button id="home-button" onclick="location.href">Ir a inicio</button>
+            <button id="home-button" onclick="window.location.href='/home'"> Ir a inicio</button>        
         </div>
     </div>
 </div>
@@ -206,6 +206,48 @@ const { questions, results } = Astro.props;
   }
 
   /* Tablet (≤ 768px) */
+  @media (max-width: 768px) {
+    #quiz-container {
+      padding: 1.5rem 1rem;
+      margin: 1rem auto;
+      width: 98vw;
+      max-width: 98vw;
+    }
+    #question-text {
+      font-size: 1.3rem;
+      min-height: 60px;
+      padding: 0 0.5rem;
+    }
+    #options-container button {
+      font-size: 1rem;
+      padding: 1rem 1rem;
+      border-radius: 10px;
+    }
+    #next-button,
+    #restart-button,
+    #home-button {
+      font-size: 1rem;
+      padding: 0.7rem 1.2rem;
+      margin-top: 1.5rem;
+      border-radius: 10px;
+    }
+    #result-title {
+      font-size: 2rem;
+    }
+    #result-description {
+      font-size: 1.05rem;
+      padding: 0 0.5rem;
+    }
+    #result-image {
+      max-width: 220px;
+    }
+    #result-buttons {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+  }
+
+/* Tablet (≤ 768px) */
   @media (max-width: 768px) {
     #quiz-container {
       padding: 1.5rem 1rem;
